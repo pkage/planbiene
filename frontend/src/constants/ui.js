@@ -1,0 +1,14 @@
+
+// UI PAGES
+export const UI_PAGE_SPLASH = 'UI_PAGE_SPLASH'
+export const UI_PAGE_ERROR = 'UI_PAGE_ERROR'
+export const UI_PAGE_START = 'UI_PAGE_START'
+export const UI_PAGE_LOGIN = 'UI_PAGE_LOGIN'
+export const UI_PAGE_LIST_ARTISTS = 'UI_PAGE_LIST_ARTISTS'
+
+
+// UI EVENTS
+export const UI_NAVIGATE = 'UI_NAVIGATE'
+
+// UI STATES
+
