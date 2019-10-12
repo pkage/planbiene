@@ -3,5 +3,3 @@ mpu
 numpy
 falcon
 gunicorn
-ticketpy
-urllib

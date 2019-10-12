@@ -8,6 +8,10 @@ from datetime import datetime
 from datetime import timedelta
 import time
 
+import concert 
+import airports as ap 
+
+
 
 keys = open('api_keys.txt').read().split("\n")
 SKY_API_KEY = keys[0]
@@ -196,9 +200,9 @@ async def bookings(session_id):
         ).json()
 
 
-async def filter_bookings(bookings, max_price=500, max_time=700, max_stops=1):
+async def filter_bookings(bookings, max_price=5000, max_time=3700, max_stops=5):
     
-    itineraries = bookings["Itineraries"][0:1000]
+    itineraries = bookings["Itineraries"]#[0:1000]
     legs        = bookings["Legs"]
     segments    = bookings["Segments"]
     carriers    = bookings["Carriers"]
@@ -246,8 +250,10 @@ async def filter_bookings(bookings, max_price=500, max_time=700, max_stops=1):
     return possible_itins
 
 
-async def get_bookings(start, _start, country, end, direct=False, when="anytime", passenger_no=1):
+async def get_bookings(start, country, end, direct=False, when="anytime", passenger_no=1, way="undef"):
 
+    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)
+    _start = _start[0]["PlaceId"]
     _end = get_places(country, CURRENCY_CODE, LOCALE_CODE, end)
     _end = _end[0]["PlaceId"]
 
@@ -288,9 +294,12 @@ async def get_bookings(start, _start, country, end, direct=False, when="anytime"
                              when, passenger_no, 
                              ",".join(carrier_ids))
 
+    
     try:
+        print(session_id)
         session_id = session_id["session_id"]
     except:
+        print(session_id)
         return []
 
     _bookings = await bookings(session_id) 
@@ -322,8 +331,10 @@ async def get_bookings(start, _start, country, end, direct=False, when="anytime"
         except KeyError:
             pass 
     """
-    
-    return _filtered
+    try:
+        return _filtered[0]
+    except:
+        return _filtered
 
 
 async def get_bookings_both_ways(start, end, direct=False, when="anytime", passenger_no=1): 
@@ -386,19 +397,18 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
 
     country = get_country(LOCALE_CODE)[COUNTRY_NAME]
 
-    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)
-    _start = _start[0]["PlaceId"]
-
 
     tasks = []
     for dest in destinations:
-
-
-        
-
         when = dest["date"]
-
-        one_way = asyncio.ensure_future(get_bookings(start, _start, country, dest["end"], direct, when, passenger_no))
+                                    # start, _start, country, end, direct=False, when="anytime", passenger_no=1, way="undef"
+        one_way = asyncio.ensure_future(get_bookings(start=start, 
+                                                    country=country, 
+                                                    end=dest["end"], 
+                                                    direct=direct, 
+                                                    when=when, 
+                                                    passenger_no=passenger_no, 
+                                                    way="forward"))
     
         try: 
             timestamp = time.mktime(datetime.strptime(when, "%Y-%m-%d").timetuple()) + timedelta(days=1).total_seconds()
@@ -408,8 +418,14 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
             when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d')
         except ValueError:
             when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m')
-    
-        other_way = asyncio.ensure_future(get_bookings(dest["end"], start, _start, country, direct, when, passenger_no))
+                                                    # start, _start, country, end, direct=False, when="anytime", passenger_no=1, way="undef"
+        other_way = asyncio.ensure_future(get_bookings(start=dest["end"],
+                                                       country=country, 
+                                                       end=start, 
+                                                       direct=direct, 
+                                                       when=when, 
+                                                       passenger_no=passenger_no, 
+                                                       way="back"))
 
         tasks.append(one_way)
         tasks.append(other_way)
@@ -420,9 +436,64 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
     results = loop.run_until_complete(bothways)
     return results
 
+
+def get_gigs(home, keyword, direct=False, passenger_no=1):
+    gigs = concert.getKeywordEvents(keyword)
+
+    destinations = []
+    for gig in gigs:
+        date = datetime.utcfromtimestamp(gig["event"]["start"]).strftime('%Y-%m-%d') 
+        lat = gig["venue"]["latitude"]
+        log = gig["venue"]["longitude"]
+        airport = ap.closest_airport(lat, log, 1)
+        destinations.append({
+            "date" : date,
+            "end" :  airport[0]
+        })
+
+    res = get_all_the_events_boy(home, destinations, direct=False, passenger_no=passenger_no)
+
+
+    _gigs = []
+    
+    for i in range(0, len(gigs)):
+        _gig = gigs[i]
+
+        outbound = res.pop(0)
+        backhome = res.pop(0)
+
+        _gig["flights"] = {
+            "outbound" : outbound,
+            "return"   : backhome
+        }
+
+        _gigs.append(_gig)
+    return _gigs
+
+
+
 start = timeit.default_timer()
-get_all_the_events_boy(start="Vilnius",  
-                       destinations=[
+    
+
+
+print(get_gigs("DUB", "Hozier"))
+
+#get_all_the_events_boy(start="Vilnius",  
+#                       destinations=[], direct=False, passenger_no=1)
+stop = timeit.default_timer()
+print('Time: ', stop - start)  
+# EXAMPLE USAGE:
+# get_bookings(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1)
+# MANDATORY FIELDS:
+# start - location to fly from
+# end - location to fly to
+# OPTIONAL FIELDS:
+# direct - direct flights only. defaults to False
+# when - day or month in which the flight should take place. defaults to anytime
+# passenger_no - number of passengers for the flight. defaults to 1
+
+"""
+[
                            {
                                "end" : "BCN",
                                "date" : "2020-01-06"
@@ -467,16 +538,5 @@ get_all_the_events_boy(start="Vilnius",
                                "end" : "IAD",
                                "date" : "2020-01-06"
                            },
-                       ], direct=False, passenger_no=1)
-stop = timeit.default_timer()
-print('Time: ', stop - start)  
-# EXAMPLE USAGE:
-# get_bookings(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1)
-# MANDATORY FIELDS:
-# start - location to fly from
-# end - location to fly to
-# OPTIONAL FIELDS:
-# direct - direct flights only. defaults to False
-# when - day or month in which the flight should take place. defaults to anytime
-# passenger_no - number of passengers for the flight. defaults to 1
-
+                       ]
+"""                       
