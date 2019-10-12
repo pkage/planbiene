@@ -12,8 +12,10 @@ def get_airports():
 def distance(origin, destination):
     return mpu.haversine_distance(origin, destination)
 
-# lat, lon: latitude/longtitude of the place to find an aiport nearby
-def closest_airport(lat, lon):
+# lat, lon: latitude/longtitude of the place to find an airport nearby
+# num: number of airports nearby to fetch
+# detailed: if True returns all data about airports, otherwise just the international code
+def closest_airport(lat, lon, num, detailed = False):
     airports = get_airports()
     distances = []
     for airport in airports:
@@ -22,9 +24,12 @@ def closest_airport(lat, lon):
                 (float(lat), float(lon))
         )
         distances.append(dist)
-    closest_airport = airports[numpy.argmin(distances)]
-    print(closest_airport)
-    return closest_airport
+    indeces = numpy.argsort(distances)
+    closest_airports = numpy.take(airports, indeces)[:int(num)]
+    if not detailed:
+        closest_airports = [airport["code"] for airport in closest_airports]
+    print(closest_airports)
+    return closest_airports
 
 if __name__ == "__main__":
-    closest_airport(sys.argv[1], sys.argv[2])
+    closest_airport(sys.argv[1], sys.argv[2], sys.argv[3], sys.argv[4])
