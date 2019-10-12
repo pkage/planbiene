@@ -38,3 +38,7 @@ export const finalizeArtistList = () => ({
     type: tripTypes.TRIP_SPOTIFY_ARTISTS_DONE
 })
 
+export const loadTrip = trip => ({
+    type: tripTypes.TRIP_LOADED,
+    trip
+})

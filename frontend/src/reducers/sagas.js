@@ -6,6 +6,8 @@ import * as uiTypes from '../constants/ui'
 import * as uiActions from '../actions/ui'
 import * as utils from '../utils'
 
+import { store } from '../index'
+
 const BACKEND = 'http://localhost:8000'
 const route = path => `${BACKEND}${path}`
 
@@ -59,11 +61,39 @@ function* watchSpotifySearches() {
     yield takeLatest(tripTypes.TRIP_SPOTIFY_ARTISTS_REQUESTED, performSpotifySearch)
 }
 
+// final submission
+function* requestTrip() {
+
+    yield put( uiActions.navigate( uiTypes.UI_PAGE_LOADING ) )
+
+    const apikey = store.getState().trip.getIn(['spotify', 'token'])
+    const artists = store.getState().trip.get('artists').toJS()
+
+    const trip = yield fetch(route('/trip'), {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            token: apikey,
+            artists
+        })
+    }).then(r => r.json())
+     
+    yield put( tripActions.loadTrip(trip) )
+    yield put( uiActions.navigate( uiTypes.UI_PAGE_TRIP ) )
+}
+
+function* watchSpotifyDone() {
+    yield takeLatest(tripTypes.TRIP_SPOTIFY_ARTISTS_DONE, requestTrip)
+}
+
 export default function* rootSaga() {
     yield all([
         watchSpotifyConfigRequest(),
         watchPageSync(),
         watchSpotifyAuthentication(),
-        watchSpotifySearches()
+        watchSpotifySearches(),
+        watchSpotifyDone()
     ])
 }

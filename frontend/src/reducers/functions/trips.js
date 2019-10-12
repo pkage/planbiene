@@ -57,6 +57,13 @@ export class TripReducer {
         // filter out the index
         return state.set('artists', state.get('artists').filter( (v, i) => i !== index) )
     }
+
+    /**
+     * Load a trip
+     */
+    static loadTrip(state, action) {
+        return state.set('trip', action.trip)
+    }
 }
 
 // hook up to actions
@@ -73,6 +80,8 @@ export default function trip(state = defaultTrip, action, opt_reducer = TripRedu
             return opt_reducer.selectArtist(state, action)
         case tripTypes.TRIP_SPOTIFY_ARTISTS_UNSELECT:
             return opt_reducer.unselectArtist(state, action)
+        case tripTypes.TRIP_LOADED:
+            return opt_reducer.loadTrip(state, action)
         default:
             return state
     }

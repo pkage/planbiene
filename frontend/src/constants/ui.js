@@ -6,6 +6,10 @@ export const UI_PAGE_START = 'UI_PAGE_START'
 export const UI_PAGE_LOGIN = 'UI_PAGE_LOGIN'
 export const UI_PAGE_LIST_ARTISTS = 'UI_PAGE_LIST_ARTISTS'
 
+export const UI_PAGE_LOADING = 'UI_PAGE_LOADING'
+export const UI_PAGE_TRIP = 'UI_PAGE_TRIP'
+
+
 
 // UI EVENTS
 export const UI_NAVIGATE = 'UI_NAVIGATE'

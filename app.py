@@ -24,6 +24,14 @@ class SpotifyConfigResource:
             'client_id': secrets['client_id']
         }
         
+class TripResolverResource:
+    def on_post(self, req, resp):
+        # from the frontend: this will contain a spotify token and an array of artists
+        print(req.media)
+
+        # ok sO
+
+        resp.media = json.load(open('trip.json', 'r'))
 
 class QuoteResource:
     def on_get(self, req, resp):
@@ -41,3 +49,4 @@ class QuoteResource:
 api = falcon.API(middleware=[SilenceCORS()])
 api.add_route('/quote', QuoteResource())
 api.add_route('/spotify/config', SpotifyConfigResource())
+api.add_route('/trip', TripResolverResource())

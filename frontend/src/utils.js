@@ -8,6 +8,8 @@ export const transformRoute = pagename => {
 
 export const urify = component => encodeURIComponent(component)
 
+export const slugify = params => Object.keys(params).map(k => `${k}=${urify(params[k])}`).join('&')
+
 export const spotify = (url, params) => {
     console.log(store)
     const apikey = store.getState().trip.getIn(['spotify', 'token'])
@@ -17,7 +19,7 @@ export const spotify = (url, params) => {
     }
 
     // process the param object into a slug
-    const slug = Object.keys(params).map(k => `${k}=${urify(params[k])}`).join('&')
+    const slug = slugify(params)
 
     return fetch(`https://api.spotify.com/v1/${url}?${slug}`, {
             headers: {
