@@ -1,8 +1,13 @@
 import json
+import asyncio
 import requests
+
 
 from dateutil import parser
 from datetime import datetime
+from datetime import timedelta
+import time
+
 
 keys = open('api_keys.txt').read().split("\n")
 SKY_API_KEY = keys[0]
@@ -196,9 +201,21 @@ def filter_bookings(bookings, max_price=500, max_time=600, max_stops=1):
     legs        = bookings["Legs"]
     segments    = bookings["Segments"]
     carriers    = bookings["Carriers"]
+    places      = bookings["Places"]
 
     possible_itins = {}
     leg_ids = []
+
+    _places = {}
+    _carriers = {}
+    for place in places:
+        _places[place["Id"]] = {
+            "code" : place["Code"],
+            "name" : place["Name"]
+        }
+
+    for carrier in carriers:
+        _carriers[carrier["Id"]] = carrier["DisplayCode"]
 
     for itin in itineraries:
         prices = itin["PricingOptions"]
@@ -216,6 +233,14 @@ def filter_bookings(bookings, max_price=500, max_time=600, max_stops=1):
                 possible_itins[leg["Id"]]["duration"] = leg["Duration"]
                 possible_itins[leg["Id"]]["departure"] = leg["Departure"]
                 possible_itins[leg["Id"]]["arrival"] = leg["Arrival"]
+                possible_itins[leg["Id"]]["airports"] = [ leg["OriginStation"] ] + leg["Stops"] + [ leg["DestinationStation"] ]
+                possible_itins[leg["Id"]]["airports"] = map(lambda x: _places[x] 
+                                                            ,possible_itins[leg["Id"]]["airports"])
+                possible_itins[leg["Id"]]["numbers"] = []
+                for fn in leg["FlightNumbers"]:
+                    possible_itins[leg["Id"]]["numbers"].append(
+                                            _carriers[fn["CarrierId"]]
+                                            + str(fn["FlightNumber"]))
 
     return possible_itins
 
@@ -272,8 +297,10 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
     for f in filtered:
         try:
             _filtered.append({
-                "departure" : filtered[f]["departure"],
-                "arrival" : filtered[f]["arrival"],
+                "numbers" : filtered[f]["numbers"],
+                "airports" : filtered[f]["airports"],
+                "departure_time" : filtered[f]["departure"],
+                "arrival_time" : filtered[f]["arrival"],
                 "price" : int(float(filtered[f]["price"])*100),
                 "duration" : filtered[f]["duration"],
                 "uri" : filtered[f]["uri"]
@@ -281,20 +308,44 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
         except KeyError:
             pass
 
-    _filtered.sort(key=lambda x: x["price"], reverse=True)
+    _filtered.sort(key=lambda x: x["price"], reverse=False)
 
+    """
     for f in _filtered:
         try:
-            print(f["departure"])
-            print(f["arrival"])
-            print(f["price"])
-            print(f["duration"])
+            del f["uri"]
+            print(f)
             print("- - - -")
         except KeyError:
             pass 
+    """
+    
+    return _filtered
 
 
+def get_bookings_both_ways(start, end, direct=False, when="anytime", passenger_no=1): 
+    one_way   = get_bookings(start, end, direct, when, passenger_no)
+    try: 
+        timestamp = time.mktime(datetime.strptime(when, "%Y-%m-%d").timetuple()) + timedelta(days=1).total_seconds()
+    except ValueError:
+        timestamp = time.mktime(datetime.strptime(when, "%Y-%m").timetuple()) + timedelta(days=1).total_seconds()
+    try:
+        when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d')
+    except ValueError:
+        when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m')
 
+    print("WHEN?")
+    print(when)
+    other_way = get_bookings(end, start, direct, when, passenger_no)
+
+
+    return {
+        "price_pp": one_way[0]["price"] + other_way[0]["price"],
+        "outbound" : one_way[0],
+        "return" : other_way[0]
+    }
+
+print(get_bookings_both_ways(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1))
 # EXAMPLE USAGE:
 # get_bookings(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1)
 # MANDATORY FIELDS:
