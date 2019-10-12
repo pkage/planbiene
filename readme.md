@@ -43,7 +43,10 @@ get_bookings(start="Vilnius", end="Edinburgh" direct=False, when="2020-01", pass
             "price" : {cost-in-pence-int}
             "duration" : {duration-in-minutes}
             "uri" : {uri-to-purchase}
-            "airports" : [{airport-code}, {airport-code}, ...]
+            "airports" : [{
+                "code": {airport-code}
+                "name": {airport-name}
+            }, ...]
             "numbers" : [{flight-number}, {flight-number}, ...]
         },
         "return" : {
