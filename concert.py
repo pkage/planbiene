@@ -8,7 +8,7 @@ baseURI = 'https://app.ticketmaster.com'
 api_key = open('tm_key.txt').read()
 
 def getEvents(artist):
-    URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
+    URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s&locale=*&radius=10000&unit=km" % (artist, api_key)
     response = requests.get(URI) 
     try:
         events = json.loads(response.content)['_embedded']['events']
@@ -16,35 +16,63 @@ def getEvents(artist):
     except:
         pass
 
+
 def getCity(event):
-    return event['_embedded']['venues'][0]['city']['name']
+    try:
+        return event['_embedded']['venues'][0]['city']['name']
+    except:
+        return ""
 
 def getVenueName(event):
-    return event['_embedded']['venues'][0]['name']
+    try:
+        return event['_embedded']['venues'][0]['name']
+    except:
+        return ""
 
 def getPC(event):
-    return event['_embedded']['venues'][0]['postalCode']
+    try:
+        return event['_embedded']['venues'][0]['postalCode']
+    except:
+        return ""
 
 def getAddress(event):
-    address = ''.join(event['_embedded']['venues'][0]['address'].values())
-    return address
+    try:
+        address = ''.join(event['_embedded']['venues'][0]['address'].values())
+        return address
+    except:
+        return ""
 
 def getLongitude(event):
-    return event['_embedded']['venues'][0]['location']['longitude']
+    try:
+        return event['_embedded']['venues'][0]['location']['longitude']
+    except:
+        return ""
 
 def getLatitude(event):
-    return event['_embedded']['venues'][0]['location']['latitude']
+    try:
+        return event['_embedded']['venues'][0]['location']['latitude']
+    except:
+        return ""
 
 def getDate(event):
-    return event['dates']['start']['localDate']
+    try:
+        return event['dates']['start']['localDate']
+    except:
+        return ""
 
 def getTime(event):
-    if 'localTime' not in event['dates']['start']:
-        return "00:00:00"
-    return event['dates']['start']['localTime']
+    try:
+        if 'localTime' not in event['dates']['start']:
+            return "00:00:00"
+        return event['dates']['start']['localTime']
+    except:
+        return ""
 
 def getCurency(event):
-    return event['priceRanges'][0]['currency']
+    try:
+        return event['priceRanges'][0]['currency']
+    except:
+        return ""
 
 def getPrice(event):
     if 'priceRanges' not in event:
@@ -56,8 +84,8 @@ def getPrice(event):
             if p['min'] < minPrice:
                 minPrice = p['min']
         currency = getCurency(event)
-        rate = getRate(currency)
         if currency != 'EUR':
+            rate = getRate(currency)
             return int(float(minPrice*rate)*100)
         else:
             return int(float(minPrice)*100)
@@ -72,11 +100,17 @@ def concertSoldOut(event):
 
 # no API call to get URL, do this the old fashioned way
 def getURL(event):
-    url = event['url']
-    return url
+    try:
+        url = event['url']
+        return url
+    except:
+        return ""
 
 def getName(event):
-    return event['name']
+    try:
+        return event['name']
+    except:
+        return ""
 
 def getEventJson(event):
     time = datetime.datetime.strptime(getDate(event)+" "+getTime(event), "%Y-%m-%d %H:%M:%S").timestamp()
