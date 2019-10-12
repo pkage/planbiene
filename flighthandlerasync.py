@@ -200,9 +200,9 @@ async def bookings(session_id):
         ).json()
 
 
-async def filter_bookings(bookings, max_price=5000, max_time=3700, max_stops=5):
-    
-    itineraries = bookings["Itineraries"]#[0:1000]
+async def filter_bookings(bookings, max_price=800, max_time=700, max_stops=2):
+
+    itineraries = bookings["Itineraries"][0:1000]
     legs        = bookings["Legs"]
     segments    = bookings["Segments"]
     carriers    = bookings["Carriers"]
@@ -288,7 +288,7 @@ async def get_bookings(start, country, end, direct=False, when="anytime", passen
             when = quote["OutboundLeg"]["DepartureDate"]
 
 
-    print(carrier_ids)
+    #print(carrier_ids)
     
     session_id = await get_session(country, _start, _end, 
                              when, passenger_no, 
@@ -296,10 +296,10 @@ async def get_bookings(start, country, end, direct=False, when="anytime", passen
 
     
     try:
-        print(session_id)
+        #print(session_id)
         session_id = session_id["session_id"]
     except:
-        print(session_id)
+        #print(session_id)
         return []
 
     _bookings = await bookings(session_id) 
@@ -437,6 +437,9 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
     return results
 
 
+
+
+
 def get_gigs(home, keyword, direct=False, passenger_no=1):
     gigs = concert.getKeywordEvents(keyword)
 
@@ -466,8 +469,8 @@ def get_gigs(home, keyword, direct=False, passenger_no=1):
             "outbound" : outbound,
             "return"   : backhome
         }
-
-        _gigs.append(_gig)
+        if(_gig["flights"]["outbound"] != [] or _gig["flights"]["return"] != []):
+            _gigs.append(_gig)
     return _gigs
 
 
@@ -475,8 +478,23 @@ def get_gigs(home, keyword, direct=False, passenger_no=1):
 start = timeit.default_timer()
     
 
+gigs = get_gigs("DUB", "Hozier")
+print(gigs)
 
-print(get_gigs("DUB", "Hozier"))
+coords = []
+for gig in gigs:
+    coords.append({
+      "startLat": LAT,
+      "startLng": LON,
+      "endLat": float(gig["venue"]["latitude"]),
+      "endLng": float(gig["venue"]["longitude"]),
+      "color": "blue"
+    })
+
+with open("coords.json", "w+") as file:
+    file.write(json.dumps(coords))
+
+
 
 #get_all_the_events_boy(start="Vilnius",  
 #                       destinations=[], direct=False, passenger_no=1)
