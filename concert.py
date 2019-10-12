@@ -27,9 +27,7 @@ def getPC(event):
     return event['_embedded']['venues'][0]['postalCode']
 
 def getAddress(event):
-    address = ""
-    for line in event['_embedded']['venues'][0]['address']:
-        address +=  " %s " % line
+    address = ''.join(event['_embedded']['venues'][0]['address'].values())
     return address
 
 def getLongitude(event):
@@ -46,22 +44,15 @@ def getTime(event):
     return event['dates']['start']['localTime']
 
 def getPrice(event):
-
     if 'priceRanges' not in event:
         return []
-
     ps = event['priceRanges']
-
     if ps != [] :
-
         minPrice = ps[0]['min']
-
         for p in ps:
             if p['min'] < minPrice:
                 minPrice = p['min'] 
-
         return int(float(minPrice)*100)
-
     else :
         return ps
 
@@ -73,11 +64,6 @@ def concertSoldOut(event):
 
 # no API call to get URL, do this the old fashioned way
 def getURL(event):
-    # event_json = event.links['self']
-    # baseURI = 'https://app.ticketmaster.com'
-    # URI = baseURI + event_json + '&apikey=' + api_key
-    # response = requests.get(URI)
-    # url = json.loads(response.content)['url']
     url = event['url']
     return url
 
@@ -86,22 +72,38 @@ def getName(event):
 
 def getEventJson(event):
     time = datetime.datetime.strptime(getDate(event)+" "+getTime(event), "%Y-%m-%d %H:%M:%S").timestamp()
-    result = json.dumps({
+    result = {
         "name": getName(event),
         "start": time,
         "url": getURL(event),
         "price_pp": getPrice(event)
-    })
-    print(result)
+    }
+    return result
+
+def getVenueJson(event):
+    result = {
+        "name": getVenueName(event),
+        "address": getAddress(event),
+        "postcode": getPC(event),
+        "city": getCity(event),
+        "longtitude": getLongitude(event),
+        "latitude": getLatitude(event) 
+    }
     return result
 
 
 ############### TEST ################
     
-test = getEvents('Matt Maeson')
+test = getEvents('Aerosmith')
+
+result = []
 
 for t in test:
-    getEventJson(t)
+    temp = {}
+    temp['event'] = getEventJson(t)
+    temp['venue'] = getVenueJson(t)
+    if temp['event']["price_pp"] != []:
+        result.append(temp)
     # if not concertSoldOut(t):
     #     print("Name: " + getName(t) + '\n')
     #     print("City: " + getCity(t) + "\n")
@@ -119,3 +121,4 @@ for t in test:
     #     print("Concert Sold Out")
     #     print("____________________")
     
+print(json.dumps(result))

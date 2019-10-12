@@ -26,7 +26,7 @@ def get_user_top_artists(number_of_artists, token):
         sp.trace = False
         artists = sp.current_user_top_artists(time_range='long_term', limit=number_of_artists)
         artists = [artist['name'] for artist in artists['items']]
-        return artists
+        return json.dumps(artists)
     else:
         # the worst hardcoded-handpicked-eyeballed list
         return ["Ariana Grande", "Rihanna", "Imagine Dragons", "Billie Eilish", "Arcade Fire"]

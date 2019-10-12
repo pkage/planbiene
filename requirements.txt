@@ -4,3 +4,4 @@ numpy
 falcon
 gunicorn
 ticketpy
+urllib
