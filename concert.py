@@ -9,8 +9,11 @@ api_key = open('tm_key.txt').read()
 def getEvents(artist):
     URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
     response = requests.get(URI) 
-    events = json.loads(response.content)['_embedded']['events']
-    return events
+    try:
+        events = json.loads(response.content)['_embedded']['events']
+        return events
+    except:
+        pass
 
 def getCity(event):
     return event['_embedded']['venues'][0]['city']['name']
