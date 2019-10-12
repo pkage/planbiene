@@ -20,7 +20,7 @@ get_bookings(start="Vilnius", end="Edinburgh" direct=False, when="2020-01", pass
     {
         "departure" : {departure-datetime-string}
         "arrival" : {arrival-datetime-string}
-        "price" : {cost-float}
+        "price" : {cost-in-pence-int}
         "duration" : {duration-in-minutes}
         "uri" : {uri-to-purchase}
     },

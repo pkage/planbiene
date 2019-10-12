@@ -213,7 +213,6 @@ def filter_bookings(bookings, max_price=500, max_time=600, max_stops=1):
     for leg in legs:
         if leg["Id"] in leg_ids:
             if (len(leg["Stops"]) <= max_stops) and (int(leg["Duration"]) <= max_time):
-                print("wooowooo")
                 possible_itins[leg["Id"]]["duration"] = leg["Duration"]
                 possible_itins[leg["Id"]]["departure"] = leg["Departure"]
                 possible_itins[leg["Id"]]["arrival"] = leg["Arrival"]
@@ -275,7 +274,7 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
             _filtered.append({
                 "departure" : filtered[f]["departure"],
                 "arrival" : filtered[f]["arrival"],
-                "price" : filtered[f]["price"],
+                "price" : int(float(filtered[f]["price"])*100),
                 "duration" : filtered[f]["duration"],
                 "uri" : filtered[f]["uri"]
             })
