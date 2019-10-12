@@ -2,6 +2,7 @@ import json
 import datetime
 import requests
 import sys
+from currency import getRate
 
 baseURI = 'https://app.ticketmaster.com'
 api_key = open('tm_key.txt').read()
@@ -42,6 +43,9 @@ def getTime(event):
         return "00:00:00"
     return event['dates']['start']['localTime']
 
+def getCurency(event):
+    return event['priceRanges'][0]['currency']
+
 def getPrice(event):
     if 'priceRanges' not in event:
         return []
@@ -50,8 +54,13 @@ def getPrice(event):
         minPrice = ps[0]['min']
         for p in ps:
             if p['min'] < minPrice:
-                minPrice = p['min'] 
-        return int(float(minPrice)*100)
+                minPrice = p['min']
+        currency = getCurency(event)
+        rate = getRate(currency)
+        if currency != 'EUR':
+            return int(float(minPrice*rate)*100)
+        else:
+            return int(float(minPrice)*100)
     else :
         return ps
 
