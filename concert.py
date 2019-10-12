@@ -1,18 +1,25 @@
 import ticketpy
 import json
+import datetime
+import requests
 
+baseURI = 'https://app.ticketmaster.com'
 api_key = open('tm_key.txt').read()
 tm_client = ticketpy.ApiClient(api_key)
 
 def getEvents(artist):
 
-    events = tm_client.events.find(keyword=artist).all()
+    URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
+    response = requests.get(URI) 
+    events = json.loads(response.content)
+
+    #events = tm_client.events.find(keyword=artist).all()
         # City, address, venue, postcode, longitude, latitude, Date, Time, Price, Accessibility
 
     return events
 
 def getCity(event):
-    return event.venues[0].city
+    return event['_embedded']['venues'][0]
 
 def getVenueName(event):
     return event.venues[0].name
@@ -46,7 +53,7 @@ def getPrice(event):
             if p["min"] < minPrice:
                 minPrice = p["min"] 
 
-        return str (minPrice)
+        return int(float(minPrice)*100)
 
     else :
         return ps
@@ -57,10 +64,28 @@ def concertSoldOut(event):
     else:
         return False
 
+# no API call to get URL, do this the old fashioned way
 def getURL(event):
-    result = "URL: ".join(event.links)
-    return result
+    event_json = event.links['self']
+    baseURI = 'https://app.ticketmaster.com'
+    URI = baseURI + event_json + '&apikey=' + api_key
+    response = requests.get(URI)
+    url = json.loads(response.content)['url']
+    return url
 
+def getName(event):
+    return event.name
+
+def getEventJson(event):
+    time = datetime.datetime.strptime(getDate(event)+" "+getTime(event), "%Y-%m-%d %H:%M:%S").timestamp()
+    result = json.dumps({
+        "name": getName(event),
+        "start": time,
+        "url": getURL(event),
+        "price_pp": getPrice(event)
+    })
+    print(result)
+    return result
 
 
 ############### TEST ################
@@ -68,20 +93,21 @@ def getURL(event):
 test = getEvents('Hozier')
 
 for t in test:
-
-    if not concertSoldOut(t):
-        print("City: " + getCity(t) + "\n")
-        print("Venue: " + getVenueName(t) + "\n")
-        print("Address: " + getAddress(t) + "\n")
-        print("Postcode: " + getPC(t) + "\n")
-        print("Longitude: " + getLongitude(t) + "\n")
-        print("Latitude: " + getLatitude(t) + "\n")
-        print("Date: " + getDate(t) + "\n")
-        print("Time: " + getTime(t) + "\n")
-        print("Price: " + getPrice(t) + "\n")
-        print(getURL(t) + "\n")
-        print("____________________")
-    else:
-        print("Concert Sold Out")
-        print("____________________")
+    getEventJson(t)
+    # if not concertSoldOut(t):
+    #     print("Name: " + getName(t) + '\n')
+    #     print("City: " + getCity(t) + "\n")
+    #     print("Venue: " + getVenueName(t) + "\n")
+    #     print("Address: " + getAddress(t) + "\n")
+    #     print("Postcode: " + getPC(t) + "\n")
+    #     print("Longitude: " + getLongitude(t) + "\n")
+    #     print("Latitude: " + getLatitude(t) + "\n")
+    #     print("Date: " + getDate(t) + "\n")
+    #     print("Time: " + getTime(t) + "\n")
+    #     print("Price: " + getPrice(t) + "\n")
+    #     print(getURL(t) + "\n")
+    #     print("____________________")
+    # else:
+    #     print("Concert Sold Out")
+    #     print("____________________")
     
