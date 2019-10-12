@@ -6,6 +6,7 @@ import { createStore, applyMiddleware, compose } from 'redux'
 import createSagaMiddleware from 'redux-saga'
 
 import rootReducer from './reducers'
+import rootSaga from './reducers/sagas'
 
 export default function configureStore(initialState) {
     const sagaMiddleware = createSagaMiddleware()
@@ -20,6 +21,8 @@ export default function configureStore(initialState) {
             )
         )
     )
+
+    sagaMiddleware.run(rootSaga)
 
     if (module.hot) {
         // Enable Webpack hot module replacement for reducers

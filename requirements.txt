@@ -1,6 +1,6 @@
-falcon
 spotipy
-gunicorn
-requests
 mpu
 numpy
+falcon
+gunicorn
+ticketpy

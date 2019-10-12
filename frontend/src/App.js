@@ -22,6 +22,9 @@ import {
 import SplashPage from './components/SplashPage/SplashPage'
 import StartPage from './components/StartPage/StartPage'
 
+// temp ? 
+import SpotifyConfig from './components/SpotifyConfig/SpotifyConfig'
+
 
 function App() {
     // react-router
@@ -40,6 +43,7 @@ function App() {
                 </Route>
 
             </Switch>
+            <SpotifyConfig/>
         </Router>
     );
 }

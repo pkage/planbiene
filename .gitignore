@@ -1,3 +1,8 @@
+# random stuff
+env_*
+.DS_Store
+secrets.json
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
@@ -128,3 +133,5 @@ dmypy.json
 # CUSTOM
 gmaps_key.txt
 api_keys.txt
+tm_key.txt
+.vscode/
