@@ -1,12 +1,10 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 import {
     useSelector
 } from 'react-redux'
 
 import {
-    UI_PAGE_SPLASH,
-    UI_PAGE_START,
     UI_PAGE_LIST_ARTISTS
 } from './constants/ui'
 
@@ -15,12 +13,7 @@ import {
     transformRoute
 } from './utils'
 
-import SplashPage from './components/SplashPage/SplashPage'
-import StartPage from './components/StartPage/StartPage'
 import ArtistsSelect from './components/ArtistsSelect/ArtistsSelect'
-
-
-// temp ? 
 import SpotifyConfig from './components/SpotifyConfig/SpotifyConfig'
 
 
