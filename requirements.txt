@@ -1,3 +1,4 @@
 falcon
 spotipy
 gunicorn
+requests
