@@ -3,12 +3,10 @@ import { useDispatch, useSelector } from 'react-redux'
 
 import { requestSpotifyConfig, authenticateSpotify } from '../../actions/trips'
 
-import { useHistory } from 'react-router-dom'
 import { urify } from '../../utils'
 
 const SpotifyConfig = props => {
     const dispatch = useDispatch()
-    const history  = useHistory()
 
     const showLogin = useSelector( store => !store.trip.getIn(['spotify', 'loggedin']) && store.trip.getIn(['spotify', 'config']) !== null)
     const spotifyConfig = useSelector( store => store.trip.getIn(['spotify', 'config']) )
@@ -41,7 +39,7 @@ const SpotifyConfig = props => {
 
         dispatch( authenticateSpotify( url.searchParams.get('access_token') ) )
 
-        history.push('/')
+        //history.push('/')
     }
 
     // loading the initial config
