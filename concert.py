@@ -11,11 +11,10 @@ def getEvents(artist):
 
     URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
     response = requests.get(URI) 
-    events = json.loads(response.content)
+    events = json.loads(response.content)['_embedded']['events']
 
     #events = tm_client.events.find(keyword=artist).all()
         # City, address, venue, postcode, longitude, latitude, Date, Time, Price, Accessibility
-
     return events
 
 def getCity(event):
@@ -42,11 +41,14 @@ def getLatitude(event):
 def getDate(event):
     return event['dates']['start']['localDate']
 def getTime(event):
-    t = event['dates']['start']['localTime']
-    time = t['hourOfDay'] + ":" + t['minuteOfHour']
-    return time
+    if 'localTime' not in event['dates']['start']:
+        return "00:00:00"
+    return event['dates']['start']['localTime']
 
 def getPrice(event):
+
+    if 'priceRanges' not in event:
+        return []
 
     ps = event['priceRanges']
 
@@ -71,15 +73,16 @@ def concertSoldOut(event):
 
 # no API call to get URL, do this the old fashioned way
 def getURL(event):
-    event_json = event.links['self']
-    baseURI = 'https://app.ticketmaster.com'
-    URI = baseURI + event_json + '&apikey=' + api_key
-    response = requests.get(URI)
-    url = json.loads(response.content)['url']
+    # event_json = event.links['self']
+    # baseURI = 'https://app.ticketmaster.com'
+    # URI = baseURI + event_json + '&apikey=' + api_key
+    # response = requests.get(URI)
+    # url = json.loads(response.content)['url']
+    url = event['url']
     return url
 
 def getName(event):
-    return event.name
+    return event['name']
 
 def getEventJson(event):
     time = datetime.datetime.strptime(getDate(event)+" "+getTime(event), "%Y-%m-%d %H:%M:%S").timestamp()
@@ -95,7 +98,7 @@ def getEventJson(event):
 
 ############### TEST ################
     
-test = getEvents('Hozier')
+test = getEvents('Matt Maeson')
 
 for t in test:
     getEventJson(t)
