@@ -19,22 +19,25 @@ def getEvents(artist):
     return events
 
 def getCity(event):
-    return event['_embedded']['venues'][0]
+    return event['_embedded']['venues'][0]['city']['name']
 
 def getVenueName(event):
-    return event.venues[0].name
+    return event['_embedded']['venues'][0]['name']
 
 def getPC(event):
-    return event.venues[0].postal_code
+    return event['_embedded']['venues'][0]['postalCode']
 
 def getAddress(event):
-    return event.venues[0].address 
+    address = ""
+    for line in event['_embedded']['venues'][0]['address']:
+        address +=  " %s " % line
+    return address
 
 def getLongitude(event):
-    return event.venues[0].longitude
+    return event['_embedded']['venues'][0]['location']['longitude']
 
 def getLatitude(event):
-    return event.venues[0].latitude
+    return event['_embedded']['venues'][0]['location']['latitude']
 
 def getDate(event):
     return event['dates']['start']['localDate']
