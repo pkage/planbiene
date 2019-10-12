@@ -37,21 +37,23 @@ def getLatitude(event):
     return event.venues[0].latitude
 
 def getDate(event):
-    return event.local_start_date
+    return event['dates']['start']['localDate']
 def getTime(event):
-    return event.local_start_time
+    t = event['dates']['start']['localTime']
+    time = t['hourOfDay'] + ":" + t['minuteOfHour']
+    return time
 
 def getPrice(event):
 
-    ps = event.price_ranges
+    ps = event['priceRanges']
 
     if ps != [] :
 
-        minPrice = ps[0]["min"]
+        minPrice = ps[0]['min']
 
         for p in ps:
-            if p["min"] < minPrice:
-                minPrice = p["min"] 
+            if p['min'] < minPrice:
+                minPrice = p['min'] 
 
         return int(float(minPrice)*100)
 
