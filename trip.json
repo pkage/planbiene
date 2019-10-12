@@ -1,0 +1,51 @@
+{
+
+    "currency": "EUR",
+
+    "number_of_travellers": 1,
+
+    "event": {
+        "name": "Hozier",
+        "start": "2019-12-10T18:30:00Z",
+        "url": "https://www.ticketmaster.co.uk/hozier-dublin-10-12-2019/event/1800571E98C1196B",
+        "price_pp": "64.57"
+    },
+
+    "venue": {
+        "name": "3Arena",
+        "address": "N Wall Quay, North Dock",
+        "postcode": "Dublin 1",
+        "city": "Dublin",
+        "longtitude": "53.3474963",
+        "latitude": "-6.2306965"
+    },
+
+    "flight": {
+
+        "outbound": {
+            "number": "",
+            "departure_airport": "",
+            "departure_time": "",
+            "arrival_airport": "",
+            "arrival_time": "",
+            "url": "",
+            "price_pp": ""
+        },
+
+        "return": {
+            "number": "",
+            "departure_airport": "",
+            "departure_time": "",
+            "arrival_airport": "",
+            "arrival_time": "",
+            "url": "",
+            "price_pp": ""
+        }
+
+    }
+
+}
+
+
+
+TODO: json input to interface

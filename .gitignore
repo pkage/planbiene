@@ -133,3 +133,4 @@ dmypy.json
 # CUSTOM
 gmaps_key.txt
 api_keys.txt
+.vscode/
