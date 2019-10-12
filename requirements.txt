@@ -1,5 +1,5 @@
 spotipy
 mpu
 numpy
-flask
-flask-dance
+falcon
+gunicorn
