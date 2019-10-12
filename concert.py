@@ -2,19 +2,16 @@ import ticketpy
 import json
 import datetime
 import requests
+import sys
 
 baseURI = 'https://app.ticketmaster.com'
 api_key = open('tm_key.txt').read()
 tm_client = ticketpy.ApiClient(api_key)
 
 def getEvents(artist):
-
     URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
     response = requests.get(URI) 
     events = json.loads(response.content)['_embedded']['events']
-
-    #events = tm_client.events.find(keyword=artist).all()
-        # City, address, venue, postcode, longitude, latitude, Date, Time, Price, Accessibility
     return events
 
 def getCity(event):
@@ -38,6 +35,7 @@ def getLatitude(event):
 
 def getDate(event):
     return event['dates']['start']['localDate']
+
 def getTime(event):
     if 'localTime' not in event['dates']['start']:
         return "00:00:00"
@@ -86,39 +84,25 @@ def getVenueJson(event):
         "address": getAddress(event),
         "postcode": getPC(event),
         "city": getCity(event),
-        "longtitude": getLongitude(event),
+        "longitude": getLongitude(event),
         "latitude": getLatitude(event) 
     }
     return result
 
+def getKeywordEvents(keyword):
+    events = getEvents(keyword)
+    result = []
+    for event in events:
+        temp = {}
+        try:
+            temp['event'] = getEventJson(event)
+            temp['venue'] = getVenueJson(event)
+        except KeyError:
+            break
+        if temp['event']["price_pp"] != []:
+            result.append(temp)
+    return result
 
-############### TEST ################
-    
-test = getEvents('Aerosmith')
 
-result = []
-
-for t in test:
-    temp = {}
-    temp['event'] = getEventJson(t)
-    temp['venue'] = getVenueJson(t)
-    if temp['event']["price_pp"] != []:
-        result.append(temp)
-    # if not concertSoldOut(t):
-    #     print("Name: " + getName(t) + '\n')
-    #     print("City: " + getCity(t) + "\n")
-    #     print("Venue: " + getVenueName(t) + "\n")
-    #     print("Address: " + getAddress(t) + "\n")
-    #     print("Postcode: " + getPC(t) + "\n")
-    #     print("Longitude: " + getLongitude(t) + "\n")
-    #     print("Latitude: " + getLatitude(t) + "\n")
-    #     print("Date: " + getDate(t) + "\n")
-    #     print("Time: " + getTime(t) + "\n")
-    #     print("Price: " + getPrice(t) + "\n")
-    #     print(getURL(t) + "\n")
-    #     print("____________________")
-    # else:
-    #     print("Concert Sold Out")
-    #     print("____________________")
-    
-print(json.dumps(result))
+if __name__ == "__main__":
+    print(getKeywordEvents(sys.argv[1]))
