@@ -200,9 +200,9 @@ async def bookings(session_id):
         ).json()
 
 
-async def filter_bookings(bookings, max_price=1000, max_time=1700, max_stops=1):
+async def filter_bookings(bookings, max_price=5000, max_time=3700, max_stops=5):
     
-    itineraries = bookings["Itineraries"][0:1000]
+    itineraries = bookings["Itineraries"]#[0:1000]
     legs        = bookings["Legs"]
     segments    = bookings["Segments"]
     carriers    = bookings["Carriers"]
@@ -250,8 +250,10 @@ async def filter_bookings(bookings, max_price=1000, max_time=1700, max_stops=1):
     return possible_itins
 
 
-async def get_bookings(start, _start, country, end, direct=False, when="anytime", passenger_no=1):
+async def get_bookings(start, country, end, direct=False, when="anytime", passenger_no=1, way="undef"):
 
+    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)
+    _start = _start[0]["PlaceId"]
     _end = get_places(country, CURRENCY_CODE, LOCALE_CODE, end)
     _end = _end[0]["PlaceId"]
 
@@ -292,10 +294,13 @@ async def get_bookings(start, _start, country, end, direct=False, when="anytime"
                              when, passenger_no, 
                              ",".join(carrier_ids))
 
+    
     try:
+        print(session_id)
         session_id = session_id["session_id"]
     except:
-        return []
+        print(session_id)
+        return {way : []}
 
     _bookings = await bookings(session_id) 
     filtered = await filter_bookings(_bookings)
@@ -326,8 +331,10 @@ async def get_bookings(start, _start, country, end, direct=False, when="anytime"
         except KeyError:
             pass 
     """
-    
-    return _filtered
+    try:
+        return {way : _filtered[0]}
+    except:
+        return {way : _filtered}
 
 
 async def get_bookings_both_ways(start, end, direct=False, when="anytime", passenger_no=1): 
@@ -390,15 +397,18 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
 
     country = get_country(LOCALE_CODE)[COUNTRY_NAME]
 
-    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)
-    _start = _start[0]["PlaceId"]
-
 
     tasks = []
     for dest in destinations:
         when = dest["date"]
-
-        one_way = asyncio.ensure_future(get_bookings(start, _start, country, dest["end"], direct, when, passenger_no))
+                                    # start, _start, country, end, direct=False, when="anytime", passenger_no=1, way="undef"
+        one_way = asyncio.ensure_future(get_bookings(start=start, 
+                                                    country=country, 
+                                                    end=dest["end"], 
+                                                    direct=direct, 
+                                                    when=when, 
+                                                    passenger_no=passenger_no, 
+                                                    way="forward"))
     
         try: 
             timestamp = time.mktime(datetime.strptime(when, "%Y-%m-%d").timetuple()) + timedelta(days=1).total_seconds()
@@ -408,8 +418,14 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
             when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d')
         except ValueError:
             when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m')
-    
-        other_way = asyncio.ensure_future(get_bookings(dest["end"], start, _start, country, direct, when, passenger_no))
+                                                    # start, _start, country, end, direct=False, when="anytime", passenger_no=1, way="undef"
+        other_way = asyncio.ensure_future(get_bookings(start=dest["end"],
+                                                       country=country, 
+                                                       end=start, 
+                                                       direct=direct, 
+                                                       when=when, 
+                                                       passenger_no=passenger_no, 
+                                                       way="back"))
 
         tasks.append(one_way)
         tasks.append(other_way)
@@ -439,20 +455,12 @@ def get_gigs(home, keyword, direct=False, passenger_no=1):
 
 
     _gigs = []
+    
     for i in range(0, len(gigs)):
         _gig = gigs[i]
 
-        outbound = {}
-        backhome = {}
-        try:
-            outbound = res[i][0]
-        except:
-            pass
-
-        try:
-            backhome = res[i+1][0]
-        except:
-            pass
+        outbound = res.pop(0)
+        backhome = res.pop(0)
 
         _gig["flights"] = {
             "outbound" : outbound,
@@ -460,8 +468,6 @@ def get_gigs(home, keyword, direct=False, passenger_no=1):
         }
 
         _gigs.append(_gig)
-        i = i+1
-
     return _gigs
 
 
@@ -470,7 +476,7 @@ start = timeit.default_timer()
     
 
 
-print(get_gigs("EDI", "Billie Eilish"))
+print(get_gigs("DUB", "Hozier"))
 
 #get_all_the_events_boy(start="Vilnius",  
 #                       destinations=[], direct=False, passenger_no=1)
