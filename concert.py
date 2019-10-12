@@ -1,4 +1,3 @@
-import ticketpy
 import json
 import datetime
 import requests
@@ -6,7 +5,6 @@ import sys
 
 baseURI = 'https://app.ticketmaster.com'
 api_key = open('tm_key.txt').read()
-tm_client = ticketpy.ApiClient(api_key)
 
 def getEvents(artist):
     URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
