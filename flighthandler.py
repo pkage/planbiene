@@ -151,6 +151,7 @@ def get_session(country, from_place, to_place, leave_date,
     print(to_place)
     print(leave_date)
     print(passenger_no)
+    print(carriers)
     # "inboundDate" : return_date,
     return requests.post(URI + "/api/v1/flights/search/pricing/v1.0",
         headers={
@@ -174,6 +175,51 @@ def get_session(country, from_place, to_place, leave_date,
 def poll_results():
 
     return requests.get(URI + "/api/v1/flights/search/pricing/v1.0") 
+
+
+def bookings(session_id):
+
+    return requests.get(URI 
+        + "/api/v1/flights/search/pricing/v1.0?session_id=" 
+        + session_id 
+        + "&sortType=price&sortOrder=desc&stops=0",
+        headers={
+            "api-key" : SKY_API_KEY,
+            "Accept" : "application/json"
+        }
+        ).json()
+
+
+def filter_bookings(bookings, max_price=500, max_time=600, max_stops=1):
+    
+    itineraries = bookings["Itineraries"]
+    legs        = bookings["Legs"]
+    segments    = bookings["Segments"]
+    carriers    = bookings["Carriers"]
+
+    possible_itins = {}
+    leg_ids = []
+
+    for itin in itineraries:
+        prices = itin["PricingOptions"]
+        for price in prices:
+            if price["Price"] <= max_price:
+                possible_itins[itin["OutboundLegId"]] = {
+                    "price": price["Price"],
+                    "uri" : price["DeeplinkUrl"]
+                }
+                leg_ids.append(itin["OutboundLegId"])
+
+    for leg in legs:
+        if leg["Id"] in leg_ids:
+            if (len(leg["Stops"]) <= max_stops) and (int(leg["Duration"]) <= max_time):
+                print("wooowooo")
+                possible_itins[leg["Id"]]["duration"] = leg["Duration"]
+                possible_itins[leg["Id"]]["departure"] = leg["Departure"]
+                possible_itins[leg["Id"]]["arrival"] = leg["Arrival"]
+
+
+    return possible_itins
 
 
 def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
@@ -221,26 +267,20 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
     print("SESSION ID: ")
     print(session_id)
 
-    print(bookings(session_id)["Itineraries"][0:10][0])
-    for el in bookings(session_id)["Itineraries"][0:30]:
-        for prices in el["PricingOptions"]:
-            print (prices["Price"])
-        print("-------")
+    _bookings = bookings(session_id) 
+    filtered = filter_bookings(_bookings)
 
-def bookings(session_id):
+    for f in filtered:
+        try:
+            print(filtered[f]["departure"])
+            print(filtered[f]["arrival"])
+            print(filtered[f]["price"])
+            print("- - - -")
+        except KeyError:
+            pass 
 
-    return requests.get(URI 
-        + "/api/v1/flights/search/pricing/v1.0?session_id=" 
-        + session_id,
-        headers={
-            "api-key" : SKY_API_KEY,
-            "Accept" : "application/json"
-        },
-        data=json.dumps({
-            "sortType" : "price",
-            "sortOrder" : "desc",
-            "stops" : 1
-        })).json()
+
+
     
 
 
@@ -248,5 +288,5 @@ def bookings(session_id):
     
 
 
-get_bookings("Vilnius", "Edinburgh", "2019-12")
+get_bookings("Vilnius", "Edinburgh", False, "2020-01")
 
