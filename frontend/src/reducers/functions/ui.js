@@ -8,6 +8,7 @@ export class UiReducer {
      * Navigate a page
      */
     static navigate(state, action) {
+        console.log('page navigated ', action)
         return state.set('page', action.target)
     }
 }

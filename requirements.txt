@@ -2,3 +2,5 @@ falcon
 spotipy
 gunicorn
 requests
+mpu
+numpy

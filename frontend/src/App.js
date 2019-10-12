@@ -1,26 +1,47 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+
+import {
+    useSelector
+} from 'react-redux'
+
+import {
+    UI_PAGE_SPLASH,
+    UI_PAGE_START
+} from './constants/ui'
+
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route
+} from 'react-router-dom';
+
+import {
+    transformRoute
+} from './utils'
+
+import SplashPage from './components/SplashPage/SplashPage'
+import StartPage from './components/StartPage/StartPage'
+
 
 function App() {
-  return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    // react-router
+    const currentPage = useSelector( store => store.ui.get('page') )
+
+    console.log('current: ', currentPage, transformRoute(currentPage))
+
+    return (
+        <Router>
+            <Switch>
+                <Route exact path={transformRoute(UI_PAGE_SPLASH)}>
+                    <SplashPage/>
+                </Route>
+                <Route exact path={transformRoute(UI_PAGE_START)}>
+                    <StartPage/>
+                </Route>
+
+            </Switch>
+        </Router>
+    );
 }
 
 export default App;
