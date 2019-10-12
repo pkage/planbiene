@@ -1,3 +1,5 @@
 falcon
 spotipy
 gunicorn
+mpu
+numpy
