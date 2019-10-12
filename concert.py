@@ -3,12 +3,13 @@ import datetime
 import requests
 import sys
 from currency import getRate
+from places import get_lat_lng_pair
 
 baseURI = 'https://app.ticketmaster.com'
 api_key = open('tm_key.txt').read()
 
 def getEvents(artist):
-    URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s&locale=*&radius=10000&unit=km" % (artist, api_key)
+    URI = baseURI + "/discovery/v2/events?apikey=%s&keyword=%s&locale=*&size=200" % (api_key, artist)
     response = requests.get(URI) 
     try:
         events = json.loads(response.content)['_embedded']['events']
@@ -131,6 +132,11 @@ def getVenueJson(event):
         "longitude": getLongitude(event),
         "latitude": getLatitude(event) 
     }
+    if result["longitude"] == "" or result["latitude"] == "":
+        query_string = "%s %s %s %s" % (result["name"], result["address"], result["postcode"], result["city"])
+        lat_lng_pair = get_lat_lng_pair(query_string)
+        result["latitude"] = str(lat_lng_pair[0])
+        result["longitude"] = str(lat_lng_pair[1])
     return result
 
 def getKeywordEvents(keyword):
@@ -143,8 +149,10 @@ def getKeywordEvents(keyword):
             temp['venue'] = getVenueJson(event)
         except KeyError:
             break
-        if temp['event']["price_pp"] != []:
-            result.append(temp)
+        #### uncomment to skip things without price info
+        #if temp['event']["price_pp"] != []:
+        #    result.append(temp)
+        result.append(temp)
     return result
 
 
