@@ -4,3 +4,5 @@ export const transformRoute = pagename => {
     const cropped = pagename.slice(8).toLowerCase()
     return (cropped === 'splash') ? '/' : '/' + cropped
 }
+
+export const urify = component => encodeURIComponent(component)
