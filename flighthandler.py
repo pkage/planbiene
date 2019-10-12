@@ -355,3 +355,4 @@ print(get_bookings_both_ways(start="Vilnius", end="Edinburgh", direct=False, whe
 # direct - direct flights only. defaults to False
 # when - day or month in which the flight should take place. defaults to anytime
 # passenger_no - number of passengers for the flight. defaults to 1
+

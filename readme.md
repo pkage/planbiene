@@ -18,14 +18,41 @@ get_bookings(start="Vilnius", end="Edinburgh" direct=False, when="2020-01", pass
 #### RETURN OBJECT:
 [
     {
-        "departure" : {departure-datetime-string}
-        "arrival" : {arrival-datetime-string}
+        "departure_time" : {departure-timestamp}
+        "arrival" : {arrival-timestamp}
         "price" : {cost-in-pence-int}
         "duration" : {duration-in-minutes}
         "uri" : {uri-to-purchase}
+        "airports" : [{airport-code}, {airport-code}, ...]
+        "numbers" : [{flight-number}, {flight-number}, ...]
     },
     { 
         ...
     },
     ...
 ]
+
+### get_bookings_both_ways function
+#### EVERYTHING SAME AS get_bookings except return object
+#### RETURN OBJECT:
+{
+        "price_pp": {outbound_price} + {return_price},
+        "outbound" : {
+            "departure_time" : {departure-timestamp}
+            "arrival" : {arrival-timestamp}
+            "price" : {cost-in-pence-int}
+            "duration" : {duration-in-minutes}
+            "uri" : {uri-to-purchase}
+            "airports" : [{airport-code}, {airport-code}, ...]
+            "numbers" : [{flight-number}, {flight-number}, ...]
+        },
+        "return" : {
+            "departure_time" : {departure-timestamp}
+            "arrival" : {arrival-timestamp}
+            "price" : {cost-in-pence-int}
+            "duration" : {duration-in-minutes}
+            "uri" : {uri-to-purchase}
+            "airports" : [{airport-code}, {airport-code}, ...]
+            "numbers" : [{flight-number}, {flight-number}, ...]
+        }
+}
