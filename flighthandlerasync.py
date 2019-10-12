@@ -1,7 +1,7 @@
 import json
 import asyncio
 import requests
-
+import timeit
 
 from dateutil import parser
 from datetime import datetime
@@ -89,7 +89,7 @@ def get_country(locale):
     return res
 
 # get currencies
-def get_currencies(): 
+async def get_currencies(): 
 
     """
     {
@@ -123,17 +123,19 @@ def get_places(country, currency, locale, query):
         } ).json()["Places"]
 
 # put all that shit together and just get some flights for a specified date.
-def get_cheapest_quotes(start, end, when="anytime", direct=False):
+async def get_cheapest_quotes(start, end, when="anytime", direct=False):
 
 
     # TODO: add direct filter
 
     country = get_country(LOCALE_CODE)[COUNTRY_NAME]
     
-    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)[0]["PlaceId"]
-    _end =   get_places(country, CURRENCY_CODE, LOCALE_CODE, end)[0]["PlaceId"]
-    print(_start)
-    print(_end)
+    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)
+    _start = _start[0]["PlaceId"]
+    _end =   get_places(country, CURRENCY_CODE, LOCALE_CODE, end)
+    _end = _end[0]["PlaceId"]
+    #print(_start)
+    #print(_end)
 
     flights = get_flight(from_city=_start, 
                          to_city=_end, 
@@ -145,18 +147,18 @@ def get_cheapest_quotes(start, end, when="anytime", direct=False):
 
     return flights
 
-def get_session(country, from_place, to_place, leave_date, 
+async def get_session(country, from_place, to_place, leave_date, 
                 passenger_no, carriers):
 
 
-    print(country)
-    print(CURRENCY_CODE)
-    print(LOCALE_CODE)
-    print(from_place)
-    print(to_place)
-    print(leave_date)
-    print(passenger_no)
-    print(carriers)
+    # print(country)
+    # print(CURRENCY_CODE)
+    # print(LOCALE_CODE)
+    # print(from_place)
+    # print(to_place)
+    # print(leave_date)
+    # print(passenger_no)
+    # print(carriers)
     # "inboundDate" : return_date,
     return requests.post(URI + "/api/v1/flights/search/pricing/v1.0",
         headers={
@@ -176,13 +178,12 @@ def get_session(country, from_place, to_place, leave_date,
             "includeCarriers" : carriers
         })).json()
 
-
-def poll_results():
+async def poll_results():
 
     return requests.get(URI + "/api/v1/flights/search/pricing/v1.0") 
 
 
-def bookings(session_id):
+async def bookings(session_id):
 
     return requests.get(URI 
         + "/api/v1/flights/search/pricing/v1.0?session_id=" 
@@ -195,9 +196,9 @@ def bookings(session_id):
         ).json()
 
 
-def filter_bookings(bookings, max_price=500, max_time=600, max_stops=1):
+async def filter_bookings(bookings, max_price=500, max_time=700, max_stops=1):
     
-    itineraries = bookings["Itineraries"]
+    itineraries = bookings["Itineraries"][0:1000]
     legs        = bookings["Legs"]
     segments    = bookings["Segments"]
     carriers    = bookings["Carriers"]
@@ -245,12 +246,10 @@ def filter_bookings(bookings, max_price=500, max_time=600, max_stops=1):
     return possible_itins
 
 
-def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
+async def get_bookings(start, _start, country, end, direct=False, when="anytime", passenger_no=1):
 
-    country = get_country(LOCALE_CODE)[COUNTRY_NAME]
-
-    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)[0]["PlaceId"]
-    _end =   get_places(country, CURRENCY_CODE, LOCALE_CODE, end)[0]["PlaceId"]
+    _end = get_places(country, CURRENCY_CODE, LOCALE_CODE, end)
+    _end = _end[0]["PlaceId"]
 
     quotes = get_flight(from_city=_start, 
                          to_city=_end, 
@@ -270,8 +269,11 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
     carrier_ids = []
     #for carrier in quotes["Carriers"]:
     #    carrier_ids.append(str(carrier["CarrierId"]))
-
-    quotes = quotes["Quotes"]
+    
+    try:
+        quotes = quotes["Quotes"]
+    except KeyError:
+        quotes = []
     minPrice = 1000000
     for quote in quotes:
         if (quote["MinPrice"] < minPrice 
@@ -281,17 +283,18 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
 
 
     print(carrier_ids)
-
-    session_id = get_session(country, _start, _end, 
+    
+    session_id = await get_session(country, _start, _end, 
                              when, passenger_no, 
                              ",".join(carrier_ids))
 
-    session_id = session_id["session_id"]
-    print("SESSION ID: ")
-    print(session_id)
+    try:
+        session_id = session_id["session_id"]
+    except:
+        return []
 
-    _bookings = bookings(session_id) 
-    filtered = filter_bookings(_bookings)
+    _bookings = await bookings(session_id) 
+    filtered = await filter_bookings(_bookings)
 
     _filtered = []
     for f in filtered:
@@ -323,8 +326,11 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
     return _filtered
 
 
-def get_bookings_both_ways(start, end, direct=False, when="anytime", passenger_no=1): 
-    one_way   = get_bookings(start, end, direct, when, passenger_no)
+async def get_bookings_both_ways(start, end, direct=False, when="anytime", passenger_no=1): 
+
+
+    one_way = asyncio.ensure_future(get_bookings(start, end, direct, when, passenger_no))
+    
     try: 
         timestamp = time.mktime(datetime.strptime(when, "%Y-%m-%d").timetuple()) + timedelta(days=1).total_seconds()
     except ValueError:
@@ -334,19 +340,136 @@ def get_bookings_both_ways(start, end, direct=False, when="anytime", passenger_n
     except ValueError:
         when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m')
 
-    print("WHEN?")
-    print(when)
-    other_way = get_bookings(end, start, direct, when, passenger_no)
+    other_way = asyncio.ensure_future(get_bookings(end, start, direct, when, passenger_no))
 
 
+    loop = asyncio.get_event_loop()
+    bothways = asyncio.gather(one_way, other_way)
+    results = loop.run_until_complete(bothways)
+
+    #print(results)
+
+    price1 = 0
+    price2 = 0
+    try:
+        price1 = one_way[0]["price"]
+    except:
+        pass
+
+    try:
+        price2 = other_way[0]["price"]
+    except:
+        pass
+
+
+    """
     return {
-        "price_pp": one_way[0]["price"] + other_way[0]["price"],
+        "price_pp": price1 + price2,
         "outbound" : one_way[0],
         "return" : other_way[0]
-    }
+    }"""
+    return results
 
 
-print(get_bookings_both_ways(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1))
+def get_all_the_events_boy(start, destinations, direct,passenger_no):
+    
+    """
+    destinations = [ 
+        {
+            "end" : "airport1"
+            "date" : 2011
+        },
+        ...
+    ]
+    """
+
+
+    country = get_country(LOCALE_CODE)[COUNTRY_NAME]
+
+    _start = get_places(country, CURRENCY_CODE, LOCALE_CODE, start)
+    _start = _start[0]["PlaceId"]
+
+
+    tasks = []
+    for dest in destinations:
+
+
+        
+
+        when = dest["date"]
+
+        one_way = asyncio.ensure_future(get_bookings(start, _start, country, dest["end"], direct, when, passenger_no))
+    
+        try: 
+            timestamp = time.mktime(datetime.strptime(when, "%Y-%m-%d").timetuple()) + timedelta(days=1).total_seconds()
+        except ValueError:
+            timestamp = time.mktime(datetime.strptime(when, "%Y-%m").timetuple()) + timedelta(days=1).total_seconds()
+        try:
+            when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%d')
+        except ValueError:
+            when = datetime.utcfromtimestamp(timestamp).strftime('%Y-%m')
+    
+        other_way = asyncio.ensure_future(get_bookings(dest["end"], start, _start, country, direct, when, passenger_no))
+
+        tasks.append(one_way)
+        tasks.append(other_way)
+
+    loop = asyncio.get_event_loop()
+    bothways = asyncio.gather(*tasks)
+
+    results = loop.run_until_complete(bothways)
+    return results
+
+start = timeit.default_timer()
+get_all_the_events_boy(start="Vilnius",  
+                       destinations=[
+                           {
+                               "end" : "BCN",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "BCN",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "BCN",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "KUN",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "RIX",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "GLA",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "YVR",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "ADA",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "LGW",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "LHR",
+                               "date" : "2020-01-06"
+                           },
+                           {
+                               "end" : "IAD",
+                               "date" : "2020-01-06"
+                           },
+                       ], direct=False, passenger_no=1)
+stop = timeit.default_timer()
+print('Time: ', stop - start)  
 # EXAMPLE USAGE:
 # get_bookings(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1)
 # MANDATORY FIELDS:

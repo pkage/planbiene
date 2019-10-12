@@ -22,23 +22,40 @@
 
     "flights": {
 
-        "url": "https://www.skyscanner.es/transporte/vuelos/edi/dub/191209/191211/?adults=1&children=0&adultsv2=1&childrenv2=&infants=0&cabinclass=economy&rtn=1&preferdirects=false&outboundaltsenabled=false&inboundaltsenabled=false&ref=home#/details/11235-1912091410--31915-0-11154-1912091515|11154-1912110630--31915-0-11235-1912110745",
         "price_pp": 3700,
 
         "outbound": {
-            "number": "FR817",
-            "departure_airport": "EDI",
+            "numbers": ["FR817", "BB420"],
             "departure_time": 1570892700,
-            "arrival_airport": "DUB",
-            "arrival_time": 1570892700
+            "airports": [
+                {
+                "code" : "DUB",
+                "name" : "Dublin"
+                }, 
+                {
+                 "code" : "EDI",
+                 "name" : "Edinburgh"}
+                ],
+            "arrival_time": 1570892700,
+            "uri" : "https://snake.rokasg.tech",
+            "price" : 1850
         },
 
         "return": {
-            "number": "FR812",
-            "departure_airport": "DUB",
+            "numbers": ["FR817", "BB420"],
             "departure_time": 1570892700,
-            "arrival_airport": "EDI",
-            "arrival_time": 1570892700
+            "airports": [
+                {
+                "code" : "DUB",
+                "name" : "Dublin"
+                }, 
+                {
+                 "code" : "EDI",
+                 "name" : "Edinburgh"}
+                ],
+            "arrival_time": 1570892700,
+            "uri" : "https://snake.rokasg.tech",
+            "price" : 1850
         }
 
     }
