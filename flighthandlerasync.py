@@ -300,7 +300,7 @@ async def get_bookings(start, country, end, direct=False, when="anytime", passen
         session_id = session_id["session_id"]
     except:
         print(session_id)
-        return {way : []}
+        return []
 
     _bookings = await bookings(session_id) 
     filtered = await filter_bookings(_bookings)
@@ -332,9 +332,9 @@ async def get_bookings(start, country, end, direct=False, when="anytime", passen
             pass 
     """
     try:
-        return {way : _filtered[0]}
+        return _filtered[0]
     except:
-        return {way : _filtered}
+        return _filtered
 
 
 async def get_bookings_both_ways(start, end, direct=False, when="anytime", passenger_no=1): 
