@@ -218,7 +218,6 @@ def filter_bookings(bookings, max_price=500, max_time=600, max_stops=1):
                 possible_itins[leg["Id"]]["departure"] = leg["Departure"]
                 possible_itins[leg["Id"]]["arrival"] = leg["Arrival"]
 
-
     return possible_itins
 
 
@@ -270,23 +269,39 @@ def get_bookings(start, end, direct=False, when="anytime", passenger_no=1):
     _bookings = bookings(session_id) 
     filtered = filter_bookings(_bookings)
 
+    _filtered = []
     for f in filtered:
         try:
-            print(filtered[f]["departure"])
-            print(filtered[f]["arrival"])
-            print(filtered[f]["price"])
+            _filtered.append({
+                "departure" : filtered[f]["departure"],
+                "arrival" : filtered[f]["arrival"],
+                "price" : filtered[f]["price"],
+                "duration" : filtered[f]["duration"],
+                "uri" : filtered[f]["uri"]
+            })
+        except KeyError:
+            pass
+
+    _filtered.sort(key=lambda x: x["price"], reverse=True)
+
+    for f in _filtered:
+        try:
+            print(f["departure"])
+            print(f["arrival"])
+            print(f["price"])
+            print(f["duration"])
             print("- - - -")
         except KeyError:
             pass 
 
 
 
-    
-
-
-
-    
-
-
-get_bookings("Vilnius", "Edinburgh", False, "2020-01")
-
+# EXAMPLE USAGE:
+# get_bookings(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1)
+# MANDATORY FIELDS:
+# start - location to fly from
+# end - location to fly to
+# OPTIONAL FIELDS:
+# direct - direct flights only. defaults to False
+# when - day or month in which the flight should take place. defaults to anytime
+# passenger_no - number of passengers for the flight. defaults to 1
