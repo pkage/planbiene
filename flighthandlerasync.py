@@ -200,7 +200,7 @@ async def bookings(session_id):
         ).json()
 
 
-async def filter_bookings(bookings, max_price=800, max_time=700, max_stops=2):
+async def filter_bookings(bookings, max_price=9800, max_time=9700, max_stops=12):
 
     itineraries = bookings["Itineraries"][0:1000]
     legs        = bookings["Legs"]
@@ -311,8 +311,8 @@ async def get_bookings(start, country, end, direct=False, when="anytime", passen
             _filtered.append({
                 "numbers" : filtered[f]["numbers"],
                 "airports" : filtered[f]["airports"],
-                "departure_time" : filtered[f]["departure"],
-                "arrival_time" : filtered[f]["arrival"],
+                "departure_time" : time.mktime(datetime.strptime(filtered[f]["departure"].split("T")[0], "%Y-%m-%d").timetuple()),
+                "arrival_time" : ftime.mktime(datetime.strptime(filtered[f]["arrival"].split("T")[0], "%Y-%m-%d").timetuple()),
                 "price" : int(float(filtered[f]["price"])*100),
                 "duration" : filtered[f]["duration"],
                 "uri" : filtered[f]["uri"]
@@ -440,45 +440,52 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
 
 
 
-def get_gigs(home, keyword, direct=False, passenger_no=1):
-    gigs = concert.getKeywordEvents(keyword)
+def get_gigs(home, keywords, direct=False, passenger_no=1):
 
-    destinations = []
-    for gig in gigs:
-        date = datetime.utcfromtimestamp(gig["event"]["start"]).strftime('%Y-%m-%d') 
-        lat = gig["venue"]["latitude"]
-        log = gig["venue"]["longitude"]
-        airport = ap.closest_airport(lat, log, 1)
-        destinations.append({
-            "date" : date,
-            "end" :  airport[0]
-        })
+    final_resp = {}
+    for keyword in keywords:
+        gigs = concert.getKeywordEvents(keyword)
 
-    res = get_all_the_events_boy(home, destinations, direct=False, passenger_no=passenger_no)
+        destinations = []
+        for gig in gigs:
+            date = datetime.utcfromtimestamp(gig["event"]["start"]).strftime('%Y-%m-%d') 
+            lat = gig["venue"]["latitude"]
+            log = gig["venue"]["longitude"]
+            airport = ap.closest_airport(lat, log, 1)
+            destinations.append({
+                "date" : date,
+                "end" :  airport[0]
+            })
 
-
-    _gigs = []
-    
-    for i in range(0, len(gigs)):
-        _gig = gigs[i]
-
-        outbound = res.pop(0)
-        backhome = res.pop(0)
-
-        _gig["flights"] = {
-            "outbound" : outbound,
-            "return"   : backhome
-        }
-        if(_gig["flights"]["outbound"] != [] or _gig["flights"]["return"] != []):
-            _gigs.append(_gig)
-    return _gigs
+        res = get_all_the_events_boy(home, destinations, direct=False, passenger_no=passenger_no)
 
 
+        _gigs = []
 
+        for i in range(0, len(gigs)):
+            _gig = gigs[i]
+
+            outbound = res.pop(0)
+            backhome = res.pop(0)
+
+            _gig["flights"] = {
+                "outbound" : outbound,
+                "return"   : backhome
+            }
+            if(_gig["flights"]["outbound"] != [] or _gig["flights"]["return"] != []):
+                _gigs.append(_gig)
+
+        final_resp[keyword] = _gigs
+
+    return final_resp
+
+gigs = get_gigs("EDI", ["Billie"])
+print(gigs)
+"""
 start = timeit.default_timer()
     
 
-gigs = get_gigs("DUB", "Hozier")
+
 print(gigs)
 
 coords = []
@@ -493,13 +500,13 @@ for gig in gigs:
 
 with open("coords.json", "w+") as file:
     file.write(json.dumps(coords))
-
+"""
 
 
 #get_all_the_events_boy(start="Vilnius",  
 #                       destinations=[], direct=False, passenger_no=1)
-stop = timeit.default_timer()
-print('Time: ', stop - start)  
+#stop = timeit.default_timer()
+# print('Time: ', stop - start)  
 # EXAMPLE USAGE:
 # get_bookings(start="Vilnius", end="Edinburgh", direct=False, when="2020-01", passenger_no=1)
 # MANDATORY FIELDS:
@@ -510,51 +517,3 @@ print('Time: ', stop - start)
 # when - day or month in which the flight should take place. defaults to anytime
 # passenger_no - number of passengers for the flight. defaults to 1
 
-"""
-[
-                           {
-                               "end" : "BCN",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "BCN",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "BCN",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "KUN",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "RIX",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "GLA",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "YVR",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "ADA",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "LGW",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "LHR",
-                               "date" : "2020-01-06"
-                           },
-                           {
-                               "end" : "IAD",
-                               "date" : "2020-01-06"
-                           },
-                       ]
-"""                       
