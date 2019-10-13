@@ -10,7 +10,7 @@ const Flight = props => {
     return (
         <div className="TripFlight">
             <b>{props.info.numbers[0]}</b>
-            <p>{props.info.airports.name} &bull; {props.info.departure_time} &bull; <Price price={props.info.price}/></p>
+            <p>{props.info.airports.name} &bull; {(new Date(props.info.departure_time*1000).toUTCString())} &bull; <Price price={props.info.price}/></p>
             <a href={props.info.uri} rel="noopener noreferrer" target="_blank" className="Trip__link">book now</a>
         </div>
     )

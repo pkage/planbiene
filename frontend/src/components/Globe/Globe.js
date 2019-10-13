@@ -10,7 +10,6 @@ class Globe extends Component {
         this.sceneSetup();
         this.addCustomSceneObjects();
         this.startAnimationLoop();
-        this.generateCoordinates();
         window.addEventListener('resize', this.handleWindowResize);
     }
     
@@ -43,6 +42,7 @@ class Globe extends Component {
 
       const coords = this.generateCoordinates();
       const arcsData = coords
+      console.log(arcsData);
       var pointsData = coords.map((e) => {
             return {
               lat: e.endLat,
@@ -89,15 +89,19 @@ class Globe extends Component {
     generateCoordinates = () => {
       let usr = this.props.user_data;
       let res = this.props.results;
-      return Object.values(res).map((e) => {
-        return {
-          startLat : usr.latitude,
-          startLng : usr.longitude,
-          endLat : e[0]["venue"]["longitude"],
-          endLng : e[0]["venue"]["latitude"],
-          color : "green"
-        }
-      })
+      console.log("REEEES", res);
+      return [].concat.apply([], Object.values(res).map((e) => {
+        return e.map((z) => {
+          return {
+            startLat : usr.latitude,
+            startLng : usr.longitude,
+            endLat : z["venue"]["latitude"],
+            endLng : z["venue"]["longitude"],
+            color : "green"
+          }
+        })
+        
+      }))
     }
     
     render() {
