@@ -8,7 +8,7 @@ const LoadingScreen = props => {
                 <div className="LoadingScreen__spinner"/>
             </div>
             <div className="LoadingScreen__right">
-                <h2> loading... </h2>
+                <h2> hang tight... </h2>
                 <i> finding the best grooves for you...</i>
             </div>
         </div>

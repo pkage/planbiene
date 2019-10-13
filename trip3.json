@@ -1,0 +1,255 @@
+{
+  "artists": {
+    "Taylor Swift": [
+      {
+        "event": {
+          "name": "Roskilde Festival 2020 - One-Day Ticket, Wednesday",
+          "start": 1593554400,
+          "url": "https://www.ticketmaster.dk/event/roskilde-festival-2020-one-day-ticket-wednesday-billetter/472387",
+          "price_pp": []
+        },
+        "venue": {
+          "name": "Festival Site in Roskilde",
+          "address": "Festival Site",
+          "postcode": "4000",
+          "city": "Roskilde",
+          "longitude": "12.08785",
+          "latitude": "55.64191"
+        },
+        "flights": {
+          "outbound": {
+            "numbers": [
+              "EZY1404",
+              "EZY1469"
+            ],
+            "airports": {
+              "code": "CPH",
+              "name": "Copenhagen"
+            },
+            "departure_time": 1593468000,
+            "arrival_time": 1593468000,
+            "price": 7901,
+            "duration": 770,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=iyvjr5TVj0STxZjfR9EZltzm8GETp6iXI5D7UuwOmIdYtrmBLRG9PU7Ks%2fuJvAbA&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2ffhac%2f1%2f9772.10694.2020-06-30%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32356%7c1404%7c9772%7c2020-06-30T06%3a40%7c12015%7c2020-06-30T08%3a15%7c95%7c-%7c-%7c-%3bflight%7c-32356%7c1469%7c12015%7c2020-06-30T17%3a30%7c10694%7c2020-06-30T19%3a30%7c120%7c-%7c-%7c-%26carriers%3d-32356%26operators%3d-32356%3b-32356%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d79.01%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dfhac.9772.1783.200630..1..E%7c-4920107751329736601%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T04%3a31%3a00%26pqid%3dfalse"
+          },
+          "return": {
+            "numbers": [
+              "UX1638",
+              "IB2146"
+            ],
+            "airports": {
+              "code": "BCN",
+              "name": "Barcelona"
+            },
+            "departure_time": 1593468000,
+            "arrival_time": 1593468000,
+            "price": 11100,
+            "duration": 390,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=MeY%2bQyUo9Aow%2bqy2xWuQnw2a%2fk6WSct2LVg5zlT6nW%2fbc9MG0riK2Rx5Dbm5X12E&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f10694.9772.2020-06-30%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32680%7c1638%7c10694%7c2020-06-30T16%3a35%7c13870%7c2020-06-30T19%3a45%7c190%7cNYYO5L%7cN%7c-%3bflight%7c-32222%7c2146%7c13870%7c2020-06-30T21%3a45%7c9772%7c2020-06-30T23%3a05%7c80%7cADUUB4%7cA%7c-%26carriers%3d-32680%2c-32222%26operators%3d-32680%3b-32222%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d111.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.1783.9772.200630..1..E%7c6067056926771323433%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T06%3a28%3a00%26transfer_protection%3dprotected%26pqid%3dtrue"
+          }
+        }
+      },
+      {
+        "event": {
+          "name": "Werchter Boutique 2020",
+          "start": 1592604000,
+          "url": "https://www.ticketmaster.be/event/werchter-boutique-2020-billets/37303",
+          "price_pp": []
+        },
+        "venue": {
+          "name": "Festivalpark Werchter",
+          "address": "Haachtsesteenweg",
+          "postcode": "3118",
+          "city": "Werchter",
+          "longitude": "4.70007",
+          "latitude": "50.97278"
+        },
+        "flights": {
+          "outbound": {
+            "numbers": [
+              "SN3696"
+            ],
+            "airports": {
+              "code": "BRU",
+              "name": "Brussels International"
+            },
+            "departure_time": 1592517600,
+            "arrival_time": 1592517600,
+            "price": 7391,
+            "duration": 125,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=IIsIOX8m%2b4HzQZv%2bJdfSlODoZnL%2bDpTrpgYUc8hhbr1nrquGHK6zbzrC2V%2bUJl8q&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2ffies%2f1%2f9772.10141.2020-06-19%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32478%7c3696%7c9772%7c2020-06-19T09%3a25%7c10141%7c2020-06-19T11%3a30%7c125%7c-%7c-%7c-%26carriers%3d-32478%26operators%3d-32478%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d73.91%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dfies.9772.1178.200619..1..E%7c6428734814499081497%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T04%3a31%3a00%26pqid%3dfalse"
+          },
+          "return": {
+            "numbers": [
+              "OS391",
+              "OS360"
+            ],
+            "airports": {
+              "code": "BCN",
+              "name": "Barcelona"
+            },
+            "departure_time": 1592517600,
+            "arrival_time": 1592604000,
+            "price": 9468,
+            "duration": 1100,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=iyvjr5TVj0STxZjfR9EZltzm8GETp6iXI5D7UuwOmIdYtrmBLRG9PU7Ks%2fuJvAbA&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fausa%2f1%2f10141.9772.2020-06-19%2fair%2fairli%2fflights%3fitinerary%3dflight%7c-32544%7c360%7c10141%7c2020-06-19T15%3a00%7c17517%7c2020-06-19T16%3a45%7c105%7cKEULGTX4%7cK%7cLIGHT%3bflight%7c-32544%7c391%7c17517%7c2020-06-20T07%3a00%7c9772%7c2020-06-20T09%3a20%7c140%7cKATLGTX4%7cK%7cLIGHT%26carriers%3d-32544%26operators%3d-32544%3b-32544%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d94.68%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dausa.1178.9772.200619..1..E%7c-9061661854827784489%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T05%3a52%3a00%26source_website_id%3dampc%26pqid%3dfalse"
+          }
+        }
+      },
+      {
+        "event": {
+          "name": "97.1 Amp Radio's 7th Annual We Can Survive",
+          "start": 1571500800,
+          "url": "https://www.ticketmaster.com/971-amp-radios-7th-annual-we-hollywood-california-10-19-2019/event/0B00571AABBD167C",
+          "price_pp": 6248
+        },
+        "venue": {
+          "name": "Hollywood Bowl",
+          "address": "2301 N Highland Ave",
+          "postcode": "90068",
+          "city": "Hollywood",
+          "longitude": "-118.33851469",
+          "latitude": "34.11177334"
+        },
+        "flights": {
+          "outbound": {
+            "numbers": [
+              "VY8012",
+              "DY7079",
+              "WN4173"
+            ],
+            "airports": {
+              "code": "BUR",
+              "name": "Burbank"
+            },
+            "departure_time": 1571436000,
+            "arrival_time": 1571436000,
+            "price": 58000,
+            "duration": 1270,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=srmXmRHDN70tsIV%2fGG5Afh74DiKorujAVSqZZY3%2faDySdVn9IwnurnrCQEMpjC0v&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f9772.10214.2019-10-19%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-31685%7c8012%7c9772%7c2019-10-19T07%3a00%7c15083%7c2019-10-19T08%3a50%7c110%7cOOWVYLB%7cO%7c-%3bflight%7c-32013%7c7079%7c10413%7c2019-10-19T13%3a30%7c14879%7c2019-10-19T15%3a35%7c665%7c-%7c-%7c-%3bflight%7c-31829%7c4173%7c14879%7c2019-10-19T18%3a05%7c10214%7c2019-10-19T19%3a10%7c65%7cWGA%7cC%7c-%26carriers%3d-31685%2c-32013%2c-31829%26operators%3d-31685%3b-32013%3b-31829%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d580.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.9772.10214.191019..1..E%7c-4869403654008565216%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T06%3a28%3a00%26transfer_protection%3dprotected%26pqid%3dtrue"
+          },
+          "return": {
+            "numbers": [
+              "DY7076",
+              "NK1917",
+              "NK711"
+            ],
+            "airports": {
+              "code": "BCN",
+              "name": "Barcelona"
+            },
+            "departure_time": 1571436000,
+            "arrival_time": 1571608800,
+            "price": 31000,
+            "duration": 2105,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=IIsIOX8m%2b4HzQZv%2bJdfSlODoZnL%2bDpTrpgYUc8hhbr1nrquGHK6zbzrC2V%2bUJl8q&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f10214.9772.2019-10-19%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-31825%7c1917%7c10214%7c2019-10-19T15%3a45%7c13411%7c2019-10-19T16%3a54%7c69%7cGA7NR%7cG%7c-%3bflight%7c-31825%7c711%7c13411%7c2019-10-19T22%3a24%7c14879%7c2019-10-19T23%3a53%7c89%7cR3XSNR%7cR%7c-%3bflight%7c-32013%7c7076%7c14879%7c2019-10-20T16%3a00%7c9772%7c2019-10-21T11%3a50%7c650%7c-%7c-%7c-%26carriers%3d-31825%2c-32013%26operators%3d-31825%3b-31825%3b-32013%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d310.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.10214.9772.191019..1..E%7c8482976228767696117%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T06%3a28%3a00%26transfer_protection%3dprotected%26pqid%3dtrue"
+          }
+        }
+      },
+      {
+        "event": {
+          "name": "Z100's Jingle Ball Presented by Capital One",
+          "start": 1576260000,
+          "url": "https://www.ticketmaster.com/z100s-jingle-ball-presented-by-capital-new-york-new-york-12-13-2019/event/3B00572CCDD62724",
+          "price_pp": 4708
+        },
+        "venue": {
+          "name": "Madison Square Garden",
+          "address": "7th Ave & 32nd Street",
+          "postcode": "10001",
+          "city": "New York",
+          "longitude": "-73.9916006",
+          "latitude": "40.7497062"
+        },
+        "flights": {
+          "outbound": {
+            "numbers": [
+              "VY2212",
+              "FR1966"
+            ],
+            "airports": {
+              "code": "TFS",
+              "name": "Tenerife South"
+            },
+            "departure_time": 1576191600,
+            "arrival_time": 1576191600,
+            "price": 5600,
+            "duration": 365,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=JkzC0ebz7r8sW0NejtjJm64CkHT0hhDm4hDceV9VeoFCb55AV4TDUdtA7KZInKqZ&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f9772.16866.2019-12-13%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-31685%7c2212%7c9772%7c2019-12-13T06%3a50%7c16628%7c2019-12-13T08%3a25%7c95%7cPOWVYHB%7cP%7c-%3bflight%7c-31915%7c1966%7c16628%7c2019-12-13T10%3a25%7c16866%7c2019-12-13T11%3a55%7c150%7c-%7c-%7c-%26carriers%3d-31685%2c-31915%26operators%3d-31685%3b-31915%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d56.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.9772.16866.191213..1..E%7c5291578990133790320%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T06%3a28%3a00%26transfer_protection%3dprotected%26pqid%3dtrue"
+          },
+          "return": {
+            "numbers": [
+              "FR1123",
+              "VY1678"
+            ],
+            "airports": {
+              "code": "BCN",
+              "name": "Barcelona"
+            },
+            "departure_time": 1576191600,
+            "arrival_time": 1576191600,
+            "price": 6100,
+            "duration": 495,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=iyvjr5TVj0STxZjfR9EZltzm8GETp6iXI5D7UuwOmIdYtrmBLRG9PU7Ks%2fuJvAbA&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f16866.9772.2019-12-13%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-31915%7c1123%7c16866%7c2019-12-13T06%3a20%7c16142%7c2019-12-13T10%3a15%7c175%7c-%7c-%7c-%3bflight%7c-31685%7c1678%7c16142%7c2019-12-13T13%3a55%7c9772%7c2019-12-13T15%3a35%7c100%7cPOWVYHB%7cP%7c-%26carriers%3d-31915%2c-31685%26operators%3d-31915%3b-31685%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d61.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.16866.9772.191213..1..E%7c6932068005305543972%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T06%3a28%3a00%26transfer_protection%3dprotected%26pqid%3dtrue"
+          }
+        }
+      },
+      {
+        "event": {
+          "name": "TAYLOR SWIFT",
+          "start": 1593975600,
+          "url": "https://www.ticketmaster.fr/fr/manifestation/taylor-swift-billet/idmanif/476728/idtier/18864121",
+          "price_pp": 6200
+        },
+        "venue": {
+          "name": "ARENES DE NIMES",
+          "address": "Rond point des Arènes",
+          "postcode": "30000",
+          "city": "Nimes",
+          "longitude": "4.360859",
+          "latitude": "43.834593"
+        },
+        "flights": {
+          "outbound": {
+            "numbers": [
+              "EK186",
+              "EK2187"
+            ],
+            "airports": {
+              "code": "ZNZ",
+              "name": "Zanzibar"
+            },
+            "departure_time": 1593900000,
+            "arrival_time": 1593986400,
+            "price": 46900,
+            "duration": 900,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=za%2b9eruNfPJdk%2bgP%2b0i%2fr%2buy0OfowQJ6D9U4pbgvpkM7jMTztoRMueyISVfQqky9&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f9772.18557.2020-07-05%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32348%7c256%7c9772%7c2020-07-05T15%3a30%7c11182%7c2020-07-06T00%3a25%7c415%7cKESOSES1%7cK%7c-%3bflight%7c-32348%7c2187%7c11182%7c2020-07-06T02%3a40%7c18557%7c2020-07-06T07%3a30%7c350%7cKESOSES1%7cK%7c-%26carriers%3d-32348%26operators%3d-32348%3b-32301%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d469.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.9772.18557.200705..1..E%7c-105509218886348588%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T06%3a28%3a00%26pqid%3dtrue"
+          },
+          "return": {
+            "numbers": [
+              "EY3751",
+              "EY642",
+              "EY49"
+            ],
+            "airports": {
+              "code": "BCN",
+              "name": "Barcelona"
+            },
+            "departure_time": 1593900000,
+            "arrival_time": 1594072800,
+            "price": 49396,
+            "duration": 2210,
+            "uri": "http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=srmXmRHDN70tsIV%2fGG5Afh74DiKorujAVSqZZY3%2faDySdVn9IwnurnrCQEMpjC0v&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fopes%2f1%2f18557.9772.2020-07-05%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32339%7c3751%7c18557%7c2020-07-05T19%3a30%7c14572%7c2020-07-05T21%3a10%7c100%7c-%7c-%7c-%3bflight%7c-32339%7c642%7c14572%7c2020-07-06T14%3a10%7c9618%7c2020-07-06T20%3a25%7c315%7c-%7c-%7c-%3bflight%7c-32339%7c49%7c9618%7c2020-07-07T02%3a00%7c9772%7c2020-07-07T07%3a20%7c440%7c-%7c-%7c-%26carriers%3d-32339%26operators%3d-31952%3b-32339%3b-32339%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d493.96%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dopes.18557.9772.200705..1..E%7c-2930710830344813307%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-13T05%3a53%3a00%26pqid%3dfalse"
+          }
+        }
+      }
+    ]
+  },
+  "user_details": {
+    "country_code": "ES",
+    "country_name": "Spain",
+    "city": "Barcelona",
+    "latitude": 41.394378662109375,
+    "longitude": 2.1131200790405273
+  }
+}

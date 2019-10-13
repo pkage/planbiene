@@ -5,7 +5,7 @@ import './Trip.css'
 import Globe from '../Globe/Globe'
 
 
-const Price = props => '£' + (props.price / 100).toFixed(2)
+const Price = props => '€' + (props.price / 100).toFixed(2)
 const Flight = props => {
     return (
         <div className="TripFlight">
@@ -75,7 +75,7 @@ const Trip = props => {
                 {stops}
             </div>
             <div className="Trip__right">
-                <Globe results={trip} user_data={trip.artists}/>
+                <Globe results={trip.artists} user_data={trip.user_details}/>
             </div>
         </div>
     )

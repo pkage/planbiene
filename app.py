@@ -38,7 +38,7 @@ class TripResolverResourceMock:
         print(req.media)
         import time
         time.sleep(2)
-        resp.media = json.load(open('./trip2.json'))
+        resp.media = json.load(open('./trip3.json'))
 
 class QuoteResource:
     def on_get(self, req, resp):

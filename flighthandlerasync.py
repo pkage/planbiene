@@ -200,7 +200,7 @@ async def bookings(session_id):
         ).json()
 
 
-async def filter_bookings(bookings, max_price=9800, max_time=9700, max_stops=12):
+async def filter_bookings(bookings, max_price=9800, max_time=1000, max_stops=4):
 
     itineraries = bookings["Itineraries"][0:1000]
     legs        = bookings["Legs"]
