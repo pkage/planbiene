@@ -28,12 +28,13 @@ class SpotifyConfigResource:
 class TripResolverResource:
     def on_post(self, req, resp):
         # from the frontend: this will contain a spotify token and an array of artists
+        # first param: city/airport of user.
+        # second param: array of keywords
         res = flighthandlerasync.get_gigs(req.place, req.keywords)
         print(req.media)
 
         # ok sO
 
-        resp.media = json.load(open('trip.json', 'r'))
 
 class QuoteResource:
     def on_get(self, req, resp):

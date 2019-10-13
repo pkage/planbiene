@@ -5,7 +5,7 @@ import sys
 from currency import getRate
 
 baseURI = 'https://app.ticketmaster.com'
-api_key = open('tm_key.txt').read()
+api_key = open('api_keys.txt').read().split("\n")[2]
 
 def getEvents(artist):
     URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
