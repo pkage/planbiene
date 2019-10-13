@@ -482,7 +482,7 @@ def get_gigs(keywords, home=CITY, direct=False, passenger_no=1):
             if(_gig["flights"]["outbound"] != [] and _gig["flights"]["return"] != []):
                 _gigs.append(_gig)
 
-        final_resp["events"][keyword] = _gigs
+        final_resp["artists"][keyword] = _gigs
         
     final_resp["user_details"] = {
             "country_code" : COUNTRY_CODE, 
