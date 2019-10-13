@@ -1,0 +1,22 @@
+.ArtistSearchBox__input {
+    font-family: var(--spotify-font);
+
+    background-color: rgba(0,0,0,0);
+    font-weight: bold;
+
+    outline: 0;
+
+    border: 0;
+    border-bottom: 1px solid var(--fg-color);
+    color: var(--fg-accent);
+
+    transition: border 0.25s cubic-bezier(0,0,0.3,1),
+                color 0.25s cubic-bezier(0,0,0.3,1);
+
+    font-size: 1.5em;
+}
+
+.ArtistSearchBox__input:focus {
+    color: var(--accent);
+    border-bottom: 1px solid var(--accent);
+}

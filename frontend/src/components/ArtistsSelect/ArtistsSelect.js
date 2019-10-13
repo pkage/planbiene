@@ -1,5 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
+import classNames from 'classnames'
+import './ArtistsSelect.css'
 
 import * as tripActions from '../../actions/trips'
 
@@ -12,13 +14,14 @@ const ArtistsSelect = props => {
 
     const selectedArtists = useSelector( store => store.trip.get('artists') )
     const searchResults = useSelector( store => store.trip.get('searched_artists') )
+    const searchQuery = useSelector( store => store.trip.get('search') )
 
     const selectArtist = id => () => dispatch(tripActions.selectSpotifyArtist(id))
-
     const unselectArtist = id => () => dispatch(tripActions.unselectSpotifyArtist(id))
 
+
     const results = searchResults
-        .map( obj => obj.toJS() )
+        .toJS()
         .map( obj => (
             <Artist
                 obj={obj}
@@ -27,7 +30,7 @@ const ArtistsSelect = props => {
         ))
 
     const itinerary = selectedArtists
-        .map( obj => obj.toJS() )
+        .toJS()
         .map( obj => (
             <Artist
                 obj={obj}
@@ -35,20 +38,46 @@ const ArtistsSelect = props => {
                 onClick={unselectArtist(obj.id)}/>
         ))
 
-    const finalize = () => dispatch(tripActions.finalizeArtistList())
+
+
+    const finalize = () => (itinerary.length !== 0 && dispatch(tripActions.finalizeArtistList()))
+
+    const doneButtonClasses = classNames(
+        'ArtistsSelect__done',
+        {'ArtistsSelect__done--active': itinerary.length !== 0}
+    )
 
     return (
         <div className="ArtistsSelect">
-            <ArtistSearchBox/>
-            <ul>
-                {results}
-            </ul>
-            <hr/>
-            <ul>
-                {itinerary}
-            </ul>
-            <hr/>
-            <div onClick={finalize}>done</div>
+            <div className="ArtistsSelect__topbar">
+                <ArtistSearchBox/>
+                <div
+                    className={doneButtonClasses}
+                    onClick={finalize}>
+                    next
+                </div>
+            </div>
+            <div className="ArtistsSelect__grid">
+                <div className="ArtistsSelect__list ArtistsSelect__list--results">
+                    {results.length !== 0 ? (
+                        <ul>
+                            {results}
+                        </ul>
+                    ) : ( searchQuery === '' ?  
+                        <i className="ArtistsSelect__ghost">No searches yet.</i> :
+                        <i className="ArtistsSelect__ghost">No searches yet.</i> 
+                    )}
+                </div>
+                <div className="ArtistsSelect__list ArtistsSelect__list--itinerary">
+                    {itinerary.length !== 0 ? (
+                        <ul>
+                            {itinerary}
+                        </ul>
+                    ) : (
+                        <i className="ArtistsSelect__ghost">No itinerary yet.</i>
+                    )}
+                </div>
+            </div>
         </div>
     )
 }

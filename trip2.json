@@ -1,45 +1,45 @@
 { 
-    'Billie':[ 
+    "Billie":[ 
        { 
-          'event':{ 
-             'name':'BILLIE EILISH - WHERE DO WE GO WORLD TOUR',
-             'start':1586543400.0,
-             'url':'https://www.ticketmaster.com/billie-eilish-where-do-we-go-tacoma-washington-04-10-2020/event/0F005737A1764D77',
-             'price_pp':3576    
+          "event":{ 
+             "name":"BILLIE EILISH - WHERE DO WE GO WORLD TOUR",
+             "start":1586543400.0,
+             "url":"https://www.ticketmaster.com/billie-eilish-where-do-we-go-tacoma-washington-04-10-2020/event/0F005737A1764D77",
+             "price_pp":3576
           },
-          'venue':{ 
-             'name':'Tacoma Dome',
-             'address':'2727 East D St',
-             'postcode':'98421',
-             'city':'Tacoma',
-             'longitude':'-122.426834',
-             'latitude':'47.23634'
+          "venue":{ 
+             "name":"Tacoma Dome",
+             "address":"2727 East D St",
+             "postcode":"98421",
+             "city":"Tacoma",
+             "longitude":"-122.426834",
+             "latitude":"47.23634"
           },
-          'flights':{ 
-             'outbound':{ 
-                'numbers':[ 
-                   'AS1653',
-                   'EI3253',
-                   'EI69'
+          "flights":{ 
+             "outbound":{ 
+                "numbers":[ 
+                   "AS1653",
+                   "EI3253",
+                   "EI69"
                 ],
-                'airports':<map object at 0x7f141cbb6438>,
-                'departure_time':'2020-04-10T11:35:00',
-                'arrival_time':'2020-04-11T08:40:00',
-                'price':59599,
-                'duration':1745,
-                'uri':'http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=IIsIOX8m%2b4HzQZv%2bJdfSlODoZnL%2bDpTrpgYUc8hhbr1nrquGHK6zbzrC2V%2bUJl8q&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fgtbf%2f1%2f11235.16177.2020-04-10%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32753%7c3253%7c11235%7c2020-04-10T11%3a35%7c11154%7c2020-04-10T12%3a50%7c75%7c-%7c-%7c-%3bflight%7c-32753%7c69%7c11154%7c2020-04-10T14%3a55%7c13416%7c2020-04-10T18%3a00%7c665%7c-%7c-%7c-%3bflight%7c-32593%7c1653%7c13416%7c2020-04-11T06%3a00%7c16177%7c2020-04-11T08%3a40%7c160%7c-%7c-%7c-%26carriers%3d-32753%2c-32593%26operators%3d-32754%3b-32753%3b-32593%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d595.99%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dgtbf.11235.6993.200410..1..E%7c3789320858059134751%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-12T19%3a44%3a00%26pqid%3dfalse'
+                "airports": {"name": "ABC Airport", "code": "ABC"},
+                "departure_time":"2020-04-10T11:35:00",
+                "arrival_time":"2020-04-11T08:40:00",
+                "price":59599,
+                "duration":1745,
+                "uri":"http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=IIsIOX8m%2b4HzQZv%2bJdfSlODoZnL%2bDpTrpgYUc8hhbr1nrquGHK6zbzrC2V%2bUJl8q&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fgtbf%2f1%2f11235.16177.2020-04-10%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32753%7c3253%7c11235%7c2020-04-10T11%3a35%7c11154%7c2020-04-10T12%3a50%7c75%7c-%7c-%7c-%3bflight%7c-32753%7c69%7c11154%7c2020-04-10T14%3a55%7c13416%7c2020-04-10T18%3a00%7c665%7c-%7c-%7c-%3bflight%7c-32593%7c1653%7c13416%7c2020-04-11T06%3a00%7c16177%7c2020-04-11T08%3a40%7c160%7c-%7c-%7c-%26carriers%3d-32753%2c-32593%26operators%3d-32754%3b-32753%3b-32593%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dfalse%26ticket_price%3d595.99%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dgtbf.11235.6993.200410..1..E%7c3789320858059134751%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-12T19%3a44%3a00%26pqid%3dfalse"
              },
-             'return':{ 
-                'numbers':[ 
-                   'BA1462',
-                   'DY7132'
+             "return":{ 
+                "numbers":[ 
+                   "BA1462",
+                   "DY7132"
                 ],
-                'airports':<map object at 0x7f141d04b400>,
-                'departure_time':'2020-04-10T13:45:00',
-                'arrival_time':'2020-04-11T21:30:00',
-                'price':36300,
-                'duration':1425,
-                'uri':'http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=XoHxI3xuPliEt%2fs%2bCpvwt%2b3R8Cvuc4C%2fKb2YgKLcNcWkSq7BRaixdMpKlck93ruu&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f16177.11235.2020-04-10%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32013%7c7132%7c16177%7c2020-04-10T13%3a45%7c13542%7c2020-04-11T07%3a00%7c555%7c-%7c-%7c-%3bflight%7c-32480%7c1462%7c13554%7c2020-04-11T20%3a05%7c11235%7c2020-04-11T21%3a30%7c85%7cOTZ0RO%7cM%7c-%26carriers%3d-32013%2c-32480%26operators%3d-31064%3b-32480%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d363.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.6993.11235.200410..1..E%7c5791095759568482466%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-12T22%3a05%3a00%26transfer_protection%3dprotected%26pqid%3dtrue'
+                "airports": {"name": "ABC Airport", "code": "ABC"},
+                "departure_time":"2020-04-10T13:45:00",
+                "arrival_time":"2020-04-11T21:30:00",
+                "price":36300,
+                "duration":1425,
+                "uri":"http://partners.api.skyscanner.net/apiservices/deeplink/v2?_cje=XoHxI3xuPliEt%2fs%2bCpvwt%2b3R8Cvuc4C%2fKb2YgKLcNcWkSq7BRaixdMpKlck93ruu&url=https%3a%2f%2fwww.skyscanner.net%2ftransport_deeplink%2f4.0%2fES%2fen-GG%2fEUR%2fskyp%2f1%2f16177.11235.2020-04-10%2fair%2ftrava%2fflights%3fitinerary%3dflight%7c-32013%7c7132%7c16177%7c2020-04-10T13%3a45%7c13542%7c2020-04-11T07%3a00%7c555%7c-%7c-%7c-%3bflight%7c-32480%7c1462%7c13554%7c2020-04-11T20%3a05%7c11235%7c2020-04-11T21%3a30%7c85%7cOTZ0RO%7cM%7c-%26carriers%3d-32013%2c-32480%26operators%3d-31064%3b-32480%26passengers%3d1%26channel%3ddataapi%26cabin_class%3deconomy%26facilitated%3dtrue%26ticket_price%3d363.00%26is_npt%3dfalse%26is_multipart%3dfalse%26client_id%3dskyscanner_b2b%26q_ids%3dskyp.6993.11235.200410..1..E%7c5791095759568482466%26q_sources%3dJACQUARD%26commercial_filters%3dfalse%26q_datetime_utc%3d2019-10-12T22%3a05%3a00%26transfer_protection%3dprotected%26pqid%3dtrue"
              }
           }
        }
