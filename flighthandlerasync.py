@@ -440,7 +440,7 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
 
 
 
-def get_gigs(home, keywords, direct=False, passenger_no=1):
+def get_gigs(keywords, home=CITY, direct=False, passenger_no=1):
 
     final_resp = {}
     for keyword in keywords:
