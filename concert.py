@@ -3,48 +3,77 @@ import datetime
 import requests
 import sys
 from currency import getRate
+from places import get_lat_lng_pair
 
 baseURI = 'https://app.ticketmaster.com'
 api_key = open('api_keys.txt').read().split("\n")[2]
 
 def getEvents(artist):
-    URI = baseURI + "/discovery/v2/events?keyword=%s&apikey=%s" % (artist, api_key)
+    URI = baseURI + "/discovery/v2/events?apikey=%s&keyword=%s&locale=*&size=200" % (api_key, artist)
     response = requests.get(URI) 
     try:
         events = json.loads(response.content)['_embedded']['events']
         return events
     except:
-        pass
+        return []
+
 
 def getCity(event):
-    return event['_embedded']['venues'][0]['city']['name']
+    try:
+        return event['_embedded']['venues'][0]['city']['name']
+    except:
+        return ""
 
 def getVenueName(event):
-    return event['_embedded']['venues'][0]['name']
+    try:
+        return event['_embedded']['venues'][0]['name']
+    except:
+        return ""
 
 def getPC(event):
-    return event['_embedded']['venues'][0]['postalCode']
+    try:
+        return event['_embedded']['venues'][0]['postalCode']
+    except:
+        return ""
 
 def getAddress(event):
-    address = ''.join(event['_embedded']['venues'][0]['address'].values())
-    return address
+    try:
+        address = ''.join(event['_embedded']['venues'][0]['address'].values())
+        return address
+    except:
+        return ""
 
 def getLongitude(event):
-    return event['_embedded']['venues'][0]['location']['longitude']
+    try:
+        return event['_embedded']['venues'][0]['location']['longitude']
+    except:
+        return ""
 
 def getLatitude(event):
-    return event['_embedded']['venues'][0]['location']['latitude']
+    try:
+        return event['_embedded']['venues'][0]['location']['latitude']
+    except:
+        return ""
 
 def getDate(event):
-    return event['dates']['start']['localDate']
+    try:
+        return event['dates']['start']['localDate']
+    except:
+        return ""
 
 def getTime(event):
-    if 'localTime' not in event['dates']['start']:
-        return "00:00:00"
-    return event['dates']['start']['localTime']
+    try:
+        if 'localTime' not in event['dates']['start']:
+            return "00:00:00"
+        return event['dates']['start']['localTime']
+    except:
+        return ""
 
 def getCurency(event):
-    return event['priceRanges'][0]['currency']
+    try:
+        return event['priceRanges'][0]['currency']
+    except:
+        return ""
 
 def getPrice(event):
     if 'priceRanges' not in event:
@@ -56,8 +85,8 @@ def getPrice(event):
             if p['min'] < minPrice:
                 minPrice = p['min']
         currency = getCurency(event)
-        rate = getRate(currency)
         if currency != 'EUR':
+            rate = getRate(currency)
             return int(float(minPrice*rate)*100)
         else:
             return int(float(minPrice)*100)
@@ -72,11 +101,17 @@ def concertSoldOut(event):
 
 # no API call to get URL, do this the old fashioned way
 def getURL(event):
-    url = event['url']
-    return url
+    try:
+        url = event['url']
+        return url
+    except:
+        return ""
 
 def getName(event):
-    return event['name']
+    try:
+        return event['name']
+    except:
+        return ""
 
 def getEventJson(event):
     time = datetime.datetime.strptime(getDate(event)+" "+getTime(event), "%Y-%m-%d %H:%M:%S").timestamp()
@@ -97,6 +132,11 @@ def getVenueJson(event):
         "longitude": getLongitude(event),
         "latitude": getLatitude(event) 
     }
+    if result["longitude"] == "" or result["latitude"] == "":
+        query_string = "%s %s %s %s" % (result["name"], result["address"], result["postcode"], result["city"])
+        lat_lng_pair = get_lat_lng_pair(query_string)            
+        result["latitude"] = str(lat_lng_pair[0])
+        result["longitude"] = str(lat_lng_pair[1])
     return result
 
 def getKeywordEvents(keyword):
@@ -109,8 +149,10 @@ def getKeywordEvents(keyword):
             temp['venue'] = getVenueJson(event)
         except KeyError:
             break
-        if temp['event']["price_pp"] != []:
-            result.append(temp)
+        #### uncomment to skip things without price info
+        #if temp['event']["price_pp"] != []:
+        #    result.append(temp)
+        result.append(temp)
     return result
 
 
