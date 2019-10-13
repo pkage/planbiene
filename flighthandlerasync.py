@@ -239,8 +239,8 @@ async def filter_bookings(bookings, max_price=9800, max_time=9700, max_stops=12)
                 possible_itins[leg["Id"]]["departure"] = leg["Departure"]
                 possible_itins[leg["Id"]]["arrival"] = leg["Arrival"]
                 possible_itins[leg["Id"]]["airports"] = [ leg["OriginStation"] ] + leg["Stops"] + [ leg["DestinationStation"] ]
-                possible_itins[leg["Id"]]["airports"] = map(lambda x: _places[x] 
-                                                            ,possible_itins[leg["Id"]]["airports"])
+                possible_itins[leg["Id"]]["airports"] = list(map(lambda x: _places[x] 
+                                                            ,possible_itins[leg["Id"]]["airports"]))
                 possible_itins[leg["Id"]]["numbers"] = []
                 for fn in leg["FlightNumbers"]:
                     possible_itins[leg["Id"]]["numbers"].append(
@@ -312,7 +312,7 @@ async def get_bookings(start, country, end, direct=False, when="anytime", passen
                 "numbers" : filtered[f]["numbers"],
                 "airports" : filtered[f]["airports"],
                 "departure_time" : time.mktime(datetime.strptime(filtered[f]["departure"].split("T")[0], "%Y-%m-%d").timetuple()),
-                "arrival_time" : ftime.mktime(datetime.strptime(filtered[f]["arrival"].split("T")[0], "%Y-%m-%d").timetuple()),
+                "arrival_time" : time.mktime(datetime.strptime(filtered[f]["arrival"].split("T")[0], "%Y-%m-%d").timetuple()),
                 "price" : int(float(filtered[f]["price"])*100),
                 "duration" : filtered[f]["duration"],
                 "uri" : filtered[f]["uri"]
