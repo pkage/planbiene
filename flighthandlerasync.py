@@ -237,8 +237,6 @@ async def filter_bookings(bookings, max_price=9800, max_time=9700, max_stops=12)
             if (len(leg["Stops"]) <= max_stops) and (int(leg["Duration"]) <= max_time):
 
 
-                
-
                 possible_itins[leg["Id"]]["duration"] = leg["Duration"]
                 possible_itins[leg["Id"]]["departure"] = leg["Departure"]
                 possible_itins[leg["Id"]]["arrival"] = leg["Arrival"]
@@ -451,6 +449,7 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
 def get_gigs(keywords, home=CITY, direct=False, passenger_no=1):
 
     final_resp = {}
+    final_resp["events"] = {}
     for keyword in keywords:
         gigs = concert.getKeywordEvents(keyword)
 
@@ -480,18 +479,19 @@ def get_gigs(keywords, home=CITY, direct=False, passenger_no=1):
                 "outbound" : outbound,
                 "return"   : backhome
             }
-            if(_gig["flights"]["outbound"] != [] or _gig["flights"]["return"] != []):
+            if(_gig["flights"]["outbound"] != [] and _gig["flights"]["return"] != []):
                 _gigs.append(_gig)
 
-        final_resp[keyword] = _gigs
-        final_resp["user_details"] = {
+        final_resp["events"][keyword] = _gigs
+        
+    final_resp["user_details"] = {
             "country_code" : COUNTRY_CODE, 
             "country_name" : COUNTRY_NAME, 
             "city" : CITY, 
             "latitude" : LAT, 
             "longitude" : LON
-        }
-
+            }
+            
     return final_resp
 
 #gigs = get_gigs("EDI", ["Billie"])
