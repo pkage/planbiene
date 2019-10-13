@@ -1,0 +1,61 @@
+.Artist {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+
+    margin-bottom: 10px;
+
+    cursor: pointer;
+
+}
+
+.Artist__img_container {
+    height: 150px;
+    width: 150px;
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.Artist__img_clipper {
+    height: 150px;
+    width: 150px;
+    overflow: hidden;
+
+}
+
+.Artist__img {
+    height: 150px;
+    width: auto;
+}
+
+.Artist__img--blank {
+    height: 150px;
+    width: 150px;
+    opacity: 0.7;
+    background-color: var(--accent);
+}
+
+
+.Artist__titles {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: center;
+
+    color: var(--fg-color);
+    transition: color 0.25s cubic-bezier(0,0,0.3,1);
+    margin-left: 1em;
+}
+
+.Artist__titles > h2 {
+    margin: 0;
+}
+
+.Artist:hover > .Artist__titles {
+    color: var(--accent);
+}
+

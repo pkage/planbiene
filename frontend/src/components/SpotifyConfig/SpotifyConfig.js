@@ -1,5 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, Fragment } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import './SpotifyConfig.css'
 
 import { requestSpotifyConfig, authenticateSpotify } from '../../actions/trips'
 
@@ -28,7 +29,10 @@ const SpotifyConfig = props => {
         const redirect = 'http://localhost:3000/login/redirect/spotify'
         const spotifyLoginURL = `https://accounts.spotify.com/authorize?client_id=${spotifyConfig.get('client_id')}&redirect_uri=${urify(redirect)}&scope=${urify(spotifyScope)}&response_type=token`
         return (
-            <a href={spotifyLoginURL}>login with spotify</a>
+            <Fragment>
+                <a className="SpotifyConfig__signinlink" href={spotifyLoginURL}>login with spotify</a>
+                <span className="SpotifyConfig__signinshadow">login with spotify</span>
+            </Fragment>
         )
     }
 
@@ -44,7 +48,7 @@ const SpotifyConfig = props => {
 
     // loading the initial config
     return (
-        <p> loading spotify </p>
+        <div className="SpotifyConfig__loading"/>
     )
 }
 

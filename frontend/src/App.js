@@ -15,7 +15,7 @@ import {
 
 import ArtistsSelect from './components/ArtistsSelect/ArtistsSelect'
 import SpotifyConfig from './components/SpotifyConfig/SpotifyConfig'
-
+import Splash from './components/Splash/Splash'
 
 function App() {
     // react-router
@@ -25,7 +25,11 @@ function App() {
     console.log('current: ', currentPage, transformRoute(currentPage))
 
     if (spotifyKey === null) {
-        return <SpotifyConfig/>
+        return (
+            <Splash>
+                <SpotifyConfig/>
+            </Splash>
+        )
     }
     
     if (currentPage === UI_PAGE_LIST_ARTISTS) {
