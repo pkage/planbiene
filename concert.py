@@ -15,7 +15,7 @@ def getEvents(artist):
         events = json.loads(response.content)['_embedded']['events']
         return events
     except:
-        pass
+        return []
 
 
 def getCity(event):
@@ -134,7 +134,7 @@ def getVenueJson(event):
     }
     if result["longitude"] == "" or result["latitude"] == "":
         query_string = "%s %s %s %s" % (result["name"], result["address"], result["postcode"], result["city"])
-        lat_lng_pair = get_lat_lng_pair(query_string)
+        lat_lng_pair = get_lat_lng_pair(query_string)            
         result["latitude"] = str(lat_lng_pair[0])
         result["longitude"] = str(lat_lng_pair[1])
     return result
