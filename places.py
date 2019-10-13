@@ -12,6 +12,7 @@ def get_lat_lng_pair(string):
         lat = location["lat"]
         lng = location["lng"]
         return (lat,lng)
+    raise KeyError
 
 if __name__ == "__main__":
     print(get_lat_lng_pair("MIND Milano Innovation District (Area Expo) 20017 Milano"))
