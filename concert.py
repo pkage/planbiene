@@ -6,7 +6,7 @@ from currency import getRate
 from places import get_lat_lng_pair
 
 baseURI = 'https://app.ticketmaster.com'
-api_key = open('tm_key.txt').read()
+api_key = open('api_keys.txt').read().split("\n")[2]
 
 def getEvents(artist):
     URI = baseURI + "/discovery/v2/events?apikey=%s&keyword=%s&locale=*&size=200" % (api_key, artist)

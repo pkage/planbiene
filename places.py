@@ -1,7 +1,7 @@
 import requests
 import json
 
-api_key = open('places_key.txt').read()
+api_key = open('api_keys.txt').read().split("\n")[3]
 baseURI = 'https://maps.googleapis.com/maps/api/place/findplacefromtext/json?input=%s&inputtype=textquery&key=%s&fields=geometry'
 
 def get_lat_lng_pair(string):
