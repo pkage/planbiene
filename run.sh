@@ -1,4 +1,4 @@
 #! /bin/sh
 
 . env_planbiene/bin/activate
-gunicorn --reload app:api
+gunicorn --timeout 300 --reload app:api

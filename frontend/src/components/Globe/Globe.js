@@ -5,11 +5,17 @@ import * as THREE from 'three';
 import ThreeGlobe from "three-globe";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
-class App extends Component {
+class Globe extends Component {
+
+    constructor(props) {
+        super(props)
+    }
+
     componentDidMount() {
         this.sceneSetup();
         this.addCustomSceneObjects();
         this.startAnimationLoop();
+        this.generateCoordinates();
         window.addEventListener('resize', this.handleWindowResize);
     }
     
@@ -66,7 +72,7 @@ class App extends Component {
             .arcColor('color').arcStroke(2).arcsTransitionDuration(3000);
       
       this.scene.add(Globe);
-      //scene.background = new THREE.Color( '#1565c0' );
+      this.scene.background = new THREE.Color( '#232528' );
       this.scene.add(new THREE.AmbientLight(0xbbbbbb));
       this.scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
 

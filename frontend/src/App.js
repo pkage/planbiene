@@ -6,7 +6,8 @@ import {
 
 import {
     UI_PAGE_LIST_ARTISTS,
-    UI_PAGE_LOADING
+    UI_PAGE_LOADING,
+    UI_PAGE_TRIP
 } from './constants/ui'
 
 
@@ -18,6 +19,7 @@ import ArtistsSelect from './components/ArtistsSelect/ArtistsSelect'
 import SpotifyConfig from './components/SpotifyConfig/SpotifyConfig'
 import Splash from './components/Splash/Splash'
 import LoadingScreen from './components/LoadingScreen/LoadingScreen'
+import Trip from './components/Trip/Trip'
 
 function App() {
     // react-router
@@ -42,6 +44,9 @@ function App() {
 
     if (currentPage === UI_PAGE_LOADING) {
         return <LoadingScreen/>
+    }
+    if (currentPage === UI_PAGE_TRIP) {
+        return <Trip/>
     }
 
     return <p> 404 </p>

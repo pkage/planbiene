@@ -63,7 +63,7 @@ export class TripReducer {
      * Load a trip
      */
     static loadTrip(state, action) {
-        return state.set('trip', action.trip)
+        return state.set('trip', fromJS(action.trip))
     }
 
     /**
