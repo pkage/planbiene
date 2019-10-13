@@ -1,15 +1,10 @@
 
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import * as THREE from 'three';
 import ThreeGlobe from "three-globe";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
 class Globe extends Component {
-
-    constructor(props) {
-        super(props)
-    }
 
     componentDidMount() {
         this.sceneSetup();
@@ -21,8 +16,6 @@ class Globe extends Component {
     
     sceneSetup = () => {
       // get container dimensions and use them for scene sizing
-      const width = this.el.clientWidth;
-      const height = this.el.clientHeight;
 
       
       this.scene = new THREE.Scene();

@@ -11,7 +11,7 @@ const Flight = props => {
         <div className="TripFlight">
             <b>{props.info.numbers[0]}</b>
             <p>{props.info.airports.name} &bull; {props.info.departure_time} &bull; <Price price={props.info.price}/></p>
-            <a href={props.info.uri} target="_blank" className="Trip__link">book now</a>
+            <a href={props.info.uri} rel="noopener noreferrer" target="_blank" className="Trip__link">book now</a>
         </div>
     )
 }
@@ -26,7 +26,7 @@ const TripStop = props => {
         <div className="TripStop">
             <h2>{props.info.event.name}</h2>
             <p>{props.info.venue.name}, {props.info.venue.city} &bull; <Price price={props.info.event.price_pp}/> &bull; {datetime}</p>
-            <a href={props.info.event.url} target="_blank" className="Trip__link">book now</a>
+            <a href={props.info.event.url} rel="noopener noreferrer" target="_blank" className="Trip__link">book now</a>
             <hr/>
             <Flight info={props.info.flights.outbound}/>
             <hr/>
