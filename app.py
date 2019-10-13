@@ -1,5 +1,6 @@
 import falcon
 import json
+import flighthandlerasync
 
 from falcon.http_status import HTTPStatus
 
@@ -27,6 +28,7 @@ class SpotifyConfigResource:
 class TripResolverResource:
     def on_post(self, req, resp):
         # from the frontend: this will contain a spotify token and an array of artists
+        res = flighthandlerasync.get_gigs(req.place, req.keywords)
         print(req.media)
 
         # ok sO
