@@ -42,7 +42,7 @@ class App extends Component {
     };
     addCustomSceneObjects  = () => {
 
-      const coords = [{"startLat": 41.394378662109375, "startLng": 2.1131200790405273, "endLat": 38.880099, "endLng": -77.026165, "color": "green"}, {"startLat": 41.394378662109375, "startLng": 2.1131200790405273, "endLat": 43.111606, "endLng": -75.592926, "color": "green"}, {"startLat": 41.394378662109375, "startLng": 2.1131200790405273, "endLat": 41.4783608, "endLng": -71.9630872, "color": "green"}, {"startLat": 41.394378662109375, "startLng": 2.1131200790405273, "endLat": 32.77478601, "endLng": -117.0712325, "color": "green"}, {"startLat": 41.394378662109375, "startLng": 2.1131200790405273, "endLat": 40.752664, "endLng": -73.994309, "color": "green"}, {"startLat": 41.394378662109375, "startLng": 2.1131200790405273, "endLat": 40.752664, "endLng": -73.994309, "color": "green"}, {"startLat": 41.394378662109375, "startLng": 2.1131200790405273, "endLat": 40.752664, "endLng": -73.994309, "color": "green"}]
+      const coords = this.generateCoordinates();
       const arcsData = coords
       var pointsData = coords.map((e) => {
             return {
