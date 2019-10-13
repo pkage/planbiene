@@ -5,7 +5,8 @@ import {
 } from 'react-redux'
 
 import {
-    UI_PAGE_LIST_ARTISTS
+    UI_PAGE_LIST_ARTISTS,
+    UI_PAGE_LOADING
 } from './constants/ui'
 
 
@@ -16,6 +17,7 @@ import {
 import ArtistsSelect from './components/ArtistsSelect/ArtistsSelect'
 import SpotifyConfig from './components/SpotifyConfig/SpotifyConfig'
 import Splash from './components/Splash/Splash'
+import LoadingScreen from './components/LoadingScreen/LoadingScreen'
 
 function App() {
     // react-router
@@ -23,6 +25,10 @@ function App() {
     const spotifyKey = useSelector( store => store.trip.getIn(['spotify', 'token']) )
 
     console.log('current: ', currentPage, transformRoute(currentPage))
+
+    if (currentPage === UI_PAGE_LOADING || true) {
+        return <LoadingScreen/>
+    }
 
     if (spotifyKey === null) {
         return (

@@ -1,7 +1,7 @@
 .ArtistsSelect__grid {
     display: grid;
     
-    padding-top: 4em;
+    padding: 4em 1em 0 1em;
     
     grid-template-columns: 50% 50%;
     grid-template-rows: 1fr;
@@ -80,6 +80,6 @@
     padding: 0;
 }
 
-.ArtistsSelect__list--itinerary > .Artist:hover > .Artist__titles {
+.ArtistsSelect__list--itinerary .Artist:hover > .Artist__titles {
     color: var(--negative);
 }
