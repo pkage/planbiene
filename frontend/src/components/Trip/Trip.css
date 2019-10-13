@@ -1,0 +1,32 @@
+.Trip {
+    display: grid;
+
+    grid-template-rows: 100vh;
+    grid-template-columns: 35% 65%;
+}
+
+.Trip__left {
+    margin-left: 1rem;
+    margin-left: 1rem;
+    overflow-y: auto;
+}
+.Trip__right {
+    
+    overflow: hidden;
+}
+
+.TripStop {
+    margin: 5px;
+    border: 1px solid rgba(255,255,255,0.7);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.Trip__link {
+    color: var(--accent);
+
+    font-family: var(--spotify-font);
+    text-transform: uppercase;
+	font-size: 12px;
+    letter-spacing: 2px;
+}

@@ -29,11 +29,16 @@ class TripResolverResource:
     def on_post(self, req, resp):
         # from the frontend: this will contain a spotify token and an array of artists
         # second param: array of keywords
-        res = flighthandlerasync.get_gigs(req.keywords)
-        print(res)
+        res = flighthandlerasync.get_gigs([artist['name'] for artist in req.media['artists']])
+        resp.media = res
 
-        # ok sO
 
+class TripResolverResourceMock:
+    def on_post(self, req, resp):
+        print(req.media)
+        import time
+        time.sleep(2)
+        resp.media = json.load(open('./trip3.json'))
 
 class QuoteResource:
     def on_get(self, req, resp):
@@ -52,3 +57,4 @@ api = falcon.API(middleware=[SilenceCORS()])
 api.add_route('/quote', QuoteResource())
 api.add_route('/spotify/config', SpotifyConfigResource())
 api.add_route('/trip', TripResolverResource())
+#api.add_route('/trip', TripResolverResourceMock())

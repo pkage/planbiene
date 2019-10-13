@@ -1,22 +1,21 @@
 
 import React, { Component } from "react";
-import ReactDOM from "react-dom";
 import * as THREE from 'three';
 import ThreeGlobe from "three-globe";
 import {OrbitControls} from "three/examples/jsm/controls/OrbitControls";
 
-class App extends Component {
+class Globe extends Component {
+
     componentDidMount() {
         this.sceneSetup();
         this.addCustomSceneObjects();
         this.startAnimationLoop();
+        this.generateCoordinates();
         window.addEventListener('resize', this.handleWindowResize);
     }
     
     sceneSetup = () => {
       // get container dimensions and use them for scene sizing
-      const width = this.el.clientWidth;
-      const height = this.el.clientHeight;
 
       
       this.scene = new THREE.Scene();
@@ -66,7 +65,7 @@ class App extends Component {
             .arcColor('color').arcStroke(2).arcsTransitionDuration(3000);
       
       this.scene.add(Globe);
-      //scene.background = new THREE.Color( '#1565c0' );
+      this.scene.background = new THREE.Color( '#232528' );
       this.scene.add(new THREE.AmbientLight(0xbbbbbb));
       this.scene.add(new THREE.DirectionalLight(0xffffff, 0.6));
 

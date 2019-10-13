@@ -79,8 +79,11 @@ function* requestTrip() {
             artists
         })
     }).then(r => r.json())
+
+    console.log('resolved trip ', trip)
      
     yield put( tripActions.loadTrip(trip) )
+
     yield put( uiActions.navigate( uiTypes.UI_PAGE_TRIP ) )
 }
 
