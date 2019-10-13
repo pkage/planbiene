@@ -235,12 +235,20 @@ async def filter_bookings(bookings, max_price=9800, max_time=9700, max_stops=12)
     for leg in legs:
         if leg["Id"] in leg_ids:
             if (len(leg["Stops"]) <= max_stops) and (int(leg["Duration"]) <= max_time):
+
+
+                
+
                 possible_itins[leg["Id"]]["duration"] = leg["Duration"]
                 possible_itins[leg["Id"]]["departure"] = leg["Departure"]
                 possible_itins[leg["Id"]]["arrival"] = leg["Arrival"]
                 possible_itins[leg["Id"]]["airports"] = [ leg["OriginStation"] ] + leg["Stops"] + [ leg["DestinationStation"] ]
-                possible_itins[leg["Id"]]["airports"] = list(map(lambda x: _places[x] 
-                                                            ,possible_itins[leg["Id"]]["airports"]))
+
+                _airports = []
+                for id in possible_itins[leg["Id"]]["airports"]:
+                    _airports = _places[id]
+                    
+                possible_itins[leg["Id"]]["airports"] = _airports
                 possible_itins[leg["Id"]]["numbers"] = []
                 for fn in leg["FlightNumbers"]:
                     possible_itins[leg["Id"]]["numbers"].append(
