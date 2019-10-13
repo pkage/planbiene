@@ -42,6 +42,7 @@ class Globe extends Component {
 
       const coords = this.generateCoordinates();
       const arcsData = coords
+
       console.log(arcsData);
       var pointsData = coords.map((e) => {
             return {
@@ -51,13 +52,15 @@ class Globe extends Component {
               color: "green"
             }
       });
-
-        pointsData.push({
+      
+      if (coords.length > 0){
+      pointsData.push({
             lat: coords[0].startLat,
             lng: coords[0].startLng,
             size: 0.15,
             color: "blue"
       });
+      }
         
       const Globe = new ThreeGlobe()
             .globeImageUrl('//unpkg.com/three-globe/example/img/earth-night.jpg')
@@ -89,6 +92,9 @@ class Globe extends Component {
     generateCoordinates = () => {
       let usr = this.props.user_data;
       let res = this.props.results;
+      if(res.length === 0) {
+        return {}
+      }
       console.log("REEEES", res);
       return [].concat.apply([], Object.values(res).map((e) => {
         return e.map((z) => {
