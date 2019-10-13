@@ -26,9 +26,7 @@ function App() {
 
     console.log('current: ', currentPage, transformRoute(currentPage))
 
-    if (currentPage === UI_PAGE_LOADING || true) {
-        return <LoadingScreen/>
-    }
+
 
     if (spotifyKey === null) {
         return (
@@ -40,6 +38,10 @@ function App() {
     
     if (currentPage === UI_PAGE_LIST_ARTISTS) {
         return <ArtistsSelect/>
+    }
+
+    if (currentPage === UI_PAGE_LOADING) {
+        return <LoadingScreen/>
     }
 
     return <p> 404 </p>
