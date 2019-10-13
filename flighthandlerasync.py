@@ -449,7 +449,7 @@ def get_all_the_events_boy(start, destinations, direct,passenger_no):
 def get_gigs(keywords, home=CITY, direct=False, passenger_no=1):
 
     final_resp = {}
-    final_resp["events"] = {}
+    final_resp["artists"] = {}
     for keyword in keywords:
         gigs = concert.getKeywordEvents(keyword)
 
@@ -491,7 +491,7 @@ def get_gigs(keywords, home=CITY, direct=False, passenger_no=1):
             "latitude" : LAT, 
             "longitude" : LON
             }
-            
+
     return final_resp
 
 #gigs = get_gigs("EDI", ["Billie"])
