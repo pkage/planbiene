@@ -47,7 +47,7 @@ const TripArtist = props => {
 
     return (
         <div>
-            <h1>{props.artist}</h1>
+            <h1>{events.length > 0 ? props.artist : "No Results"}</h1>
             {events}
         </div>
     )

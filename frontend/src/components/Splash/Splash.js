@@ -7,7 +7,7 @@ const Splash = props => (
         <div className="Splash__left">
             <h2 className="Splash__title--invisible">&nbsp;</h2>
             <img src={logo} alt="planbiene logo" width="auto" height="150px"/>
-            <h2 className="Splash__title">plan biene</h2>
+            <h2 className="Splash__title">GigScanner</h2>
         </div>
         <div className="Splash__right">
             {props.children}
