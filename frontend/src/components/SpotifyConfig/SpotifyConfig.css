@@ -1,0 +1,83 @@
+.SpotifyConfig__signinlink {
+    color: var(--fg-color);
+    font-family: var(--spotify-font);
+	font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 18px 48px 16px;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: bold;
+    text-decoration: none;
+
+    background-color: var(--spotify-color);
+
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    z-index: 2;
+
+}
+
+.SpotifyConfig__signinshadow {
+    pointer-events: none;
+    background-color: var(--spotify-color);
+    color: rgba(0,0,0,0);
+	font-size: 14px;
+    line-height: 1;
+    border-radius: 500px;
+    padding: 18px 48px 16px;
+    border-width: 0;
+    letter-spacing: 2px;
+    min-width: 160px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: bold;
+    text-decoration: none;
+
+    z-index: 1;
+
+    position: absolute;
+    display: block;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    transform-origin: 50% 50%;
+
+    transition: transform 0.25s cubic-bezier(0,0,0.3,1);
+}
+
+.SpotifyConfig__signinlink:hover + .SpotifyConfig__signinshadow {
+
+    transform: translate(-50%, -50%) scale(20);
+}
+
+.SpotifyConfig__loading {
+    width: 10px;
+    height: 10px;
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform-origin: 50% 50%;
+    transform: translate(-50%, -50%);
+
+    animation: rotate-centered 1s linear 0s infinite;
+
+    background-color: var(--spotify-color);
+}
+
+@keyframes rotate-centered {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}

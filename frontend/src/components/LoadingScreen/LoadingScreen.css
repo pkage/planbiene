@@ -1,0 +1,73 @@
+.LoadingScreen {
+    min-height: 100vh;
+    
+
+    display: flex;
+
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+}
+.LoadingScreen__left, .LoadingScreen__right {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 4em;
+}
+
+
+.LoadingScreen__spinner {
+  width: 200px;
+  height: 200px;
+  background-color: #2980b9;
+  
+  animation-name: spinny;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+
+@keyframes spinny {
+  0% {
+    transform: rotate(0deg);
+    background-color: #2980b9;
+    border-radius: 5%;
+  }
+  20% {
+    transform: rotate(72deg);
+    background-color: #e67e22;
+    border-radius: 5%;
+    border-top-left-radius: 50%;
+  }
+  40% {
+    transform: rotate(144deg);
+    background-color: #f1c40f;
+    border-radius: 5%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+  }
+  60% {
+    transform: rotate(216deg);
+    background-color: #2ecc71;
+    border-radius: 5%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    
+  }
+  80% {
+    transform: rotate(288deg);
+    background-color: #9b59b6;
+    border-radius: 5%;
+    border-top-left-radius: 50%;
+    border-top-right-radius: 50%;
+    border-bottom-right-radius: 50%;
+    border-bottom-left-radius: 50%;
+  }
+  100% {
+    transform: rotate(360deg);
+    background-color: #2980b9;
+    border-radius: 5%;
+  }
+}

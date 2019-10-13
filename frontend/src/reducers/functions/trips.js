@@ -22,7 +22,8 @@ export class TripReducer {
      * resolve a search
      */
     static resolveSearch(state, action) {
-        return state.set('searched_artists', fromJS(action.artists))
+        state = state.set('searched_artists', fromJS(action.artists))
+        return state.set('search', '')
     }
 
     /**
@@ -64,6 +65,13 @@ export class TripReducer {
     static loadTrip(state, action) {
         return state.set('trip', action.trip)
     }
+
+    /**
+     * Set a search
+     */
+    static setRequestedArtists(state, action) {
+        return state.set('search', action.search)
+    }
 }
 
 // hook up to actions
@@ -82,6 +90,8 @@ export default function trip(state = defaultTrip, action, opt_reducer = TripRedu
             return opt_reducer.unselectArtist(state, action)
         case tripTypes.TRIP_LOADED:
             return opt_reducer.loadTrip(state, action)
+        case tripTypes.TRIP_SPOTIFY_ARTISTS_REQUESTED:
+            return opt_reducer.setRequestedArtists(state, action)
         default:
             return state
     }

@@ -1,0 +1,29 @@
+.Splash {
+    height: 100vh;
+
+	display: grid;
+	
+	grid-template-rows: 1fr;
+	grid-template-columns: 1fr 1fr;
+}
+
+.Splash__left {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    /* border-right: 0.5px solid var(--fg-color);*/
+    margin: 10vh 0px;
+}
+
+.Splash__right {
+    position: relative;
+
+    border-left: 0.5px solid var(--fg-color);
+    margin: 10vh 0px;
+}
+
+.Splash__title {
+    font-family: var(--spotify-font);
+}

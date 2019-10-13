@@ -476,11 +476,18 @@ def get_gigs(home, keywords, direct=False, passenger_no=1):
                 _gigs.append(_gig)
 
         final_resp[keyword] = _gigs
+        final_resp["user_details"] = {
+            "country_code" : COUNTRY_CODE, 
+            "country_name" : COUNTRY_NAME, 
+            "city" : CITY, 
+            "latitude" : LAT, 
+            "longitude" : LON
+        }
 
     return final_resp
 
-gigs = get_gigs("EDI", ["Billie"])
-print(gigs)
+#gigs = get_gigs("EDI", ["Billie"])
+#print(gigs)
 """
 start = timeit.default_timer()
     
