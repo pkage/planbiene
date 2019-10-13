@@ -245,9 +245,9 @@ async def filter_bookings(bookings, max_price=9800, max_time=9700, max_stops=12)
                 possible_itins[leg["Id"]]["airports"] = [ leg["OriginStation"] ] + leg["Stops"] + [ leg["DestinationStation"] ]
 
                 _airports = []
-                for id in possible_itins[leg["Id"]]["airports"]:
-                    _airports = _places[id]
-                    
+                for _id in possible_itins[leg["Id"]]["airports"]:
+                    _airports = _places[_id]
+
                 possible_itins[leg["Id"]]["airports"] = _airports
                 possible_itins[leg["Id"]]["numbers"] = []
                 for fn in leg["FlightNumbers"]:
