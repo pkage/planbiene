@@ -1,5 +1,5 @@
 # GigScanner
-![logo][https://github.com/pkage/planbiene/blob/master/Logo%20(DevPost).png]
+![logo](https://github.com/pkage/planbiene/blob/master/Logo%20(DevPost).png)
 
 ## Inspiration
 We've all been there: your favourite band just started their world tour, and your city is not on the list. You try to find another way to see them, but having 200 tabs open with the prices of flight and concert tickets is getting a bit overwhelming. We have the solution: a web app dedicated to finding the most affordable concert ticket and flight available to you!
