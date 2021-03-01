@@ -13,7 +13,7 @@
     "react-scripts": "3.2.0",
     "redux": "^4.0.4",
     "redux-saga": "^1.1.1",
-    "three": "^0.109.0",
+    "three": "^0.125.0",
     "three-globe": "^2.1.2"
   },
   "scripts": {
